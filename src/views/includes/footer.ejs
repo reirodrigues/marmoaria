@@ -1,0 +1,98 @@
+<script
+src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+crossorigin="anonymous"
+></script>
+<script
+src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+crossorigin="anonymous"
+></script>
+<script
+src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"
+integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK"
+crossorigin="anonymous"
+></script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src='../assets/js/bundle.js'></script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+
+<script src="../assets/js/index.js"></script>
+
+
+<!-- Formulario em português -->
+<script>
+    $(function () {
+      $("#tabela").DataTable({
+        "order": [[ 0, "desc" ]],
+        "responsive": true, 
+        "lengthChange": false, 
+        "autoWidth": false,
+        "dom": 'Bftip',
+        "buttons": [
+            {
+              extend: 'excel'
+            },
+            {
+              extend: 'print'
+            },
+            {
+              extend: 'colvis'
+            },
+        ],
+        "paging": true,
+        "lengthChange": true,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
+        "language": {
+          "sEmptyTable": "Nenhum registro encontrado",
+          "sInfo": "",
+          "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+          "sInfoFiltered": "(Filtrados de MAX registros)",
+          "sInfoThousands": ".",
+          "sLengthMenu": "MENU resultados por página",
+          "sLoadingRecords": "Carregando...",
+          "sProcessing": "Processando...",
+          "sZeroRecords": "Nenhum registro encontrado",
+          "sSearch": "Filtrar",
+          "oPaginate": {
+              "sNext": "Próximo",
+              "sPrevious": "Anterior",
+              "sFirst": "Primeiro",
+              "sLast": "Último"
+          },"oAria": {
+              "sSortAscending": ": Ordenar colunas de forma ascendente",
+              "sSortDescending": ": Ordenar colunas de forma descendente"
+          },
+          "select": {
+              "rows": {
+                  "_": "Selecionado %d linhas",
+                  "0": "Nenhuma linha selecionada",
+                  "1": "Selecionado 1 linha"
+              }
+          },
+          "buttons": {
+              "copy": "Copiar",
+              "copyTitle": "Copiado",
+              "copySuccess": {
+                  "1": "Uma linha copiada com sucesso",
+                  "_": "%d linhas copiadas com sucesso"
+              },
+              "colvis":"Colunas",
+              "print":"Imprimir"
+          }
+      }
+      }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)')
+    });
+</script>
+
+
+</body>
+</html>

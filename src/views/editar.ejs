@@ -1,0 +1,86 @@
+<%- include('includes/head')%> <%- include('includes/nav')%>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-2"></div>
+
+    <div class="col-lg-8 my-3">
+      <h1 class="text-center">Editar pedido</h1>
+      <p class="text-center">Substitua os campos desejados depois clique em 'Salvar'</p>
+
+      <%- include('includes/messages')%>
+
+      <% if(pedido._id) { %> 
+        <form action="/pedido/edit/<%= pedido._id %> " method="POST" class="my-5">
+
+        <% } else { %> 
+
+          <form action="/pedido/register" method="POST" class="my-5">
+        <% } %> 
+
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputEmail4">Data de pagamento:</label>
+            <input
+              value="<%= pedido.dataPagamento %>"
+              type="date"
+              class="form-control"
+              name="dataPagamento"
+            />
+          </div>
+          <div class="form-group col-md-6 my-3">
+            <label for="inputPassword4">Classificação:</label>
+            <input
+              value="<%= pedido.classificacao %>"
+              type="text"
+              class="form-control"
+              name="classificacao"
+            />
+          </div>
+        </div>
+        <div class="form-group my-3">
+          <label for="inputAddress">Valor:</label>
+          <input
+            value="<%= pedido.valor %>"
+            type="text"
+            class="form-control"
+            name="valor"
+          />
+        </div>
+        <div class="form-group my-3">
+          <label for="inputAddress2">Tipo conta:</label>
+          <input
+            value="<%= pedido.tipoConta %>"
+            type="text"
+            class="form-control"
+            name="tipoConta"
+          />
+        </div>
+        <div class="form-group my-3">
+          <label for="inputAddress2">Cliente:</label>
+          <input
+            value="<%= pedido.cliente %>"
+            type="text"
+            class="form-control"
+            name="cliente"
+          />
+        </div>
+        <div class="form-group my-3">
+          <label for="inputAddress2">Origem:</label>
+          <input
+            value="<%= pedido.origem %>"
+            type="text"
+            class="form-control"
+            name="origem"
+          />
+        </div>
+        
+
+        <button type="submit" class="btn btn-primary my-3">Salvar</button>
+      </form>
+    </div>
+  </div>
+
+  <%- include('includes/footer')%>
+</div>

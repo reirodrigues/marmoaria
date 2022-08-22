@@ -1,0 +1,67 @@
+<%- include('includes/head')%> <%- include('includes/nav')%>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-2"></div>
+
+    <div class="col-lg-8 my-3">
+      <h1 class="text-center">Editar dados do cliente</h1>
+      <p class="text-center">Substitua os campos desejados depois clique em 'Salvar'</p>
+
+      <%- include('includes/messages')%>
+
+      <% if(cliente._id) { %> 
+        <form action="/cliente/edit/<%= cliente._id %> " method="POST" class="my-5">
+
+        <% } else { %> 
+
+          <form action="/cliente/register" method="POST" class="my-5">
+        <% } %> 
+
+
+
+        <div class="form-group my-3">
+          <label for="inputAddress">Nome:</label>
+          <input
+            value="<%= cliente.nome %>"
+            type="text"
+            class="form-control"
+            name="nome"
+          />
+        </div>
+        <div class="form-group my-3">
+          <label for="inputAddress2">CNPJ:</label>
+          <input
+            value="<%= cliente.cnpj %>"
+            type="text"
+            class="form-control"
+            name="cnpj"
+          />
+        </div>
+        <div class="form-group my-3">
+          <label for="inputAddress2">Telefone:</label>
+          <input
+            value="<%= cliente.telefone %>"
+            type="text"
+            class="form-control"
+            name="telefone"
+          />
+        </div>
+        <div class="form-group my-3">
+          <label for="inputAddress2">Endereço:</label>
+          <input
+            value="<%= cliente.endereco %>"
+            type="text"
+            class="form-control"
+            name="endereco"
+          />
+        </div>
+        
+
+        <button type="submit" class="btn btn-primary my-3">Salvar</button>
+      </form>
+    </div>
+  </div>
+
+  <%- include('includes/footer')%>
+</div>

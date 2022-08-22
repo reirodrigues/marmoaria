@@ -1,0 +1,51 @@
+<%- include('includes/head')%> <%- include('includes/nav')%>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-2"></div>
+
+    <div class="my-3">
+      <h1 class="text-center">Financeiro</h1>
+      <p class="text-center lead">Pedidos cadastrados no sistema</p>
+
+        <a
+          href="/pedido"
+          type="button"
+          class="align-self-center btn btn-outline-primary mt-5"
+          >Cadastrar novo pedido</a
+        > 
+
+      <%- include('includes/messages')%>
+
+      <table id="tabela" class="table table-striped table-hover rounded shadow-lg" style="width: 100%">
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Classificação</th>
+            <th>Valor</th>
+            <th>Tipo de conta</th>
+            <th>Cliente</th>
+            <th>Origem</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% pedidos.forEach(pedido => { %>
+            <tr>
+              <td><%= pedido.dataPagamento %></td>
+              <td><%= pedido.classificacao %></td>
+              <td><%= pedido.valor %></td>
+              <td><%= pedido.tipoConta %></td>
+              <td><%= pedido.cliente %></td>
+              <td><%= pedido.origem %></td>
+              <td><a href="/pedido/<%= pedido._id%>">Editar</a></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+
+      <%- include('includes/footer')%>
+    </div>
+  </div>
+</div>
+
