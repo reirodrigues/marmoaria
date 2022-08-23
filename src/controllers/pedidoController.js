@@ -33,11 +33,13 @@ exports.register = async (req, res) => {
 exports.editIndex = async (req, res) => {
   if (!req.params.id) return res.render("404");
 
+  const clientes = await Cliente.buscarClientes();
+
   const pedido = await Pedido.buscarPorId(req.params.id);
 
   if (!pedido) return res.render("404");
 
-  res.render("editar", { pedido: pedido });
+  res.render("editar", { pedido: pedido, clientes: clientes });
 };
 
 exports.edit = async (req, res) => {
