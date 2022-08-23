@@ -61,18 +61,20 @@
           />
         </div>
         <div class="form-group my-3">
-          <label for="inputAddress2">Tipo conta:</label>
-          <input
-            value="<%= pedido.tipoConta %>"
-            type="text"
-            class="form-control"
-            name="tipoConta"
-          />
+          <label class="form-label">Tipo de conta:</label>
+          <select name="tipoConta" id="select-state" placeholder="Selecione o tipo da conta...">
+            <option value="">Slecione o cliente</option>
+            <% contas.forEach(conta => { %>
+              <option value="<%= conta.tipoConta %>"><%= conta.tipoConta %></option>
+          <% }); %>
+          </select>
+
+
         </div>
         <div class="form-group my-3">
 
           <label class="form-label">Cliente:</label>
-          <select name="cliente" id="select-state" placeholder="Selecione o cliente...">
+          <select name="cliente" id="select-state2" placeholder="Selecione o cliente...">
             <option value="">Slecione o cliente</option>
             <% clientes.forEach(cliente => { %>
               <option value="<%= cliente.nome %>"><%= cliente.nome %></option>
@@ -82,13 +84,16 @@
 
         </div>
         <div class="form-group my-3">
-          <label for="inputAddress2">Origem:</label>
-          <input
-            value="<%= pedido.origem %>"
-            type="text"
-            class="form-control"
-            name="origem"
-          />
+          <label class="form-label">Origem:</label>
+          <select name="origem" id="select-state3" placeholder="Selecione a Origem...">
+            <% origens.forEach(origem => { %>
+              <option value="<%= origem.origem %>"><%= origem.origem %></option>
+          <% }); %>
+          </select>
+
+
+        </div>
+
         <div class="form-group my-3">
           <label for="inputAddress2">Status:</label>
           <input

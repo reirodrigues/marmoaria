@@ -1,12 +1,18 @@
 const Pedido = require("../models/PedidoModel");
 const Cliente = require("../models/ClienteModel");
+const Conta = require("../models/ContaModel");
+const Origem = require("../models/OrigemModel");
 
 exports.index = async (req, res) => {
   const clientes = await Cliente.buscarClientes();
+  const contas = await Conta.buscarContas();
+  const origens = await Origem.buscarOrigens();
 
   res.render("pedido", {
     pedido: {},
     clientes: clientes,
+    contas: contas,
+    origens: origens,
   });
 };
 
