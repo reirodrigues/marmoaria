@@ -37,7 +37,7 @@ exports.editIndex = async (req, res) => {
 
   if (!conta) return res.render("404");
 
-  res.render("editar", { conta: conta });
+  res.render("editarConta", { conta: conta });
 };
 
 exports.edit = async (req, res) => {

@@ -5,59 +5,30 @@
     <div class="col-lg-2"></div>
 
     <div class="col-lg-8 my-3">
-      <h1 class="text-center">Editar dados do cliente</h1>
+      <h1 class="text-center">Editar tipo de conta</h1>
       <p class="text-center">Substitua os campos desejados depois clique em 'Salvar'</p>
 
       <%- include('includes/messages')%>
 
-      <% if(cliente._id) { %> 
-        <form action="/cliente/edit/<%= cliente._id %> " method="POST" class="my-5">
+      <% if(conta._id) { %> 
+        <form action="/conta/edit/<%= conta._id %> " method="POST" class="my-5">
 
         <% } else { %> 
 
-          <form action="/cliente/register" method="POST" class="my-5">
+          <form action="/conta/register" method="POST" class="my-5">
         <% } %> 
 
 
 
         <div class="form-group my-3">
-          <label for="inputAddress">Nome:</label>
+          <label for="inputAddress">Tipo de conta:</label>
           <input
-            value="<%= cliente.nome %>"
+            value="<%= conta.tipoConta %>"
             type="text"
             class="form-control"
-            name="nome"
+            name="tipoConta"
           />
         </div>
-        <div class="form-group my-3">
-          <label for="inputAddress2">CNPJ:</label>
-          <input
-            value="<%= cliente.cnpj %>"
-            type="text"
-            class="form-control"
-            name="cnpj"
-          />
-        </div>
-        <div class="form-group my-3">
-          <label for="inputAddress2">Telefone:</label>
-          <input
-            value="<%= cliente.telefone %>"
-            type="text"
-            class="form-control"
-            name="telefone"
-          />
-        </div>
-        <div class="form-group my-3">
-          <label for="inputAddress2">Endereço:</label>
-          <input
-            value="<%= cliente.endereco %>"
-            type="text"
-            class="form-control"
-            name="endereco"
-          />
-        </div>
-        
-
         <button type="submit" class="btn btn-primary my-3">Salvar</button>
       </form>
     </div>

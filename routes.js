@@ -37,5 +37,7 @@ route.get("/conta/home", loginRequired, homeController.contaIndex);
 
 route.get("/conta", loginRequired, contaController.index);
 route.post("/conta/register", loginRequired, contaController.register);
+route.get("/conta/:id", loginRequired, contaController.editIndex);
+route.post("/conta/edit/:id", loginRequired, contaController.edit);
 
 module.exports = route;
