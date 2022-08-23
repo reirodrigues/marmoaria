@@ -1,0 +1,40 @@
+<%- include('includes/head')%> <%- include('includes/nav')%>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-2"></div>
+
+    <div class="col-lg-8 my-5">
+      <h1 class="text-center">Cadastrar nova conta</h1>
+      <p class="text-center">Insira os dados da conta e clique em 'Salvar'</p>
+
+      <%- include('includes/messages')%>
+
+      <% if(conta._id) { %> 
+        <form action="/conta/edit/<%= conta._id %> " method="POST" class="my-5">
+
+        <% } else { %> 
+
+          <form action="/conta/register" method="POST" class="my-5">
+        <% } %> 
+
+        <div class="form-row">
+          <div class="form-group my-3">
+            <label for="inputEmail4">Tipo conta:</label>
+            <input
+              value="<%= conta.tipoConta %>"
+              type="text"
+              class="form-control"
+              name="tipoConta"
+            />
+          </div>
+        <div class="d-flex justify-content-between">
+          <button type="submit" class="btn btn-primary my-3">Salvar</button>
+          <a class="btn btn-primary my-3" href="/" role="button">Voltar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <%- include('includes/footer')%>
+</div>
