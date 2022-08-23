@@ -20,8 +20,16 @@
 
 
         <div class="form-row">
-          <div class="form-group">
-            <label for="inputEmail4">Data de pagamento:</label>
+          <div class="form-group my-3">
+            <label for="inputEmail4">Vencimento Original:</label>
+            <input
+              value="<%= pedido.vencimentoOriginal %>"
+              type="date"
+              class="form-control"
+              name="vencimentoOriginal"
+            />
+          <div class="form-group my-3">
+            <label for="inputEmail4">Data pagamento:</label>
             <input
               value="<%= pedido.dataPagamento %>"
               type="date"
@@ -29,14 +37,15 @@
               name="dataPagamento"
             />
           </div>
+          
           <div class="form-group my-3">
             <label for="inputPassword4">Classificação:</label>
             <input
-              value="<%= pedido.classificacao %>"
-              type="text"
-              class="form-control"
-              name="classificacao"
-            />
+            value="<%= pedido.classificacao %>"
+            type="text"
+            class="form-control"
+            name="classificacao"
+          />
           </div>
         </div>
         <div class="form-group my-3">
@@ -79,6 +88,14 @@
             type="text"
             class="form-control"
             name="origem"
+          />
+        <div class="form-group my-3">
+          <label for="inputAddress2">Status:</label>
+          <input
+            value="<%= pedido.status %>"
+            type="text"
+            class="form-control"
+            name="status"
           />
         </div>
         

@@ -1,5 +1,5 @@
 const Pedido = require("../models/PedidoModel");
-const Cliente = require("../models/ClienteModel")
+const Cliente = require("../models/ClienteModel");
 
 exports.index = async (req, res) => {
   const clientes = await Cliente.buscarClientes();

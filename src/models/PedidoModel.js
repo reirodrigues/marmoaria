@@ -1,12 +1,14 @@
 const mongoose = require("mongoose");
 
 const PedidoSchema = new mongoose.Schema({
-  dataPagamento: { type: String, required: true },
+  vencimentoOriginal: { type: String, required: true },
+  dataPagamento: { type: String, required: false, default: "" },
   classificacao: { type: String, required: true },
   valor: { type: String, required: true },
   tipoConta: { type: String, required: true },
   cliente: { type: String, required: true },
   origem: { type: String, required: true },
+  status: { type: String, required: true },
   criadoEm: { type: Date, default: Date.now },
 });
 
@@ -30,13 +32,14 @@ Pedido.prototype.register = async function () {
 Pedido.prototype.valida = function () {
   this.cleanUp();
 
-  if (!this.body.dataPagamento)
-    this.errors.push("Data de pagamento é obrigatório");
+  if (!this.body.vencimentoOriginal)
+    this.errors.push("Vencimento Original é um campo obrigatório");
   if (!this.body.classificacao) this.errors.push("Classificação é obrigatório");
   if (!this.body.valor) this.errors.push("Valor é um campo obrigatório");
   if (!this.body.tipoConta) this.errors.push("Tipo de conta é obrigatório");
   if (!this.body.cliente) this.errors.push("Cliente é obrigatório");
   if (!this.body.origem) this.errors.push("Origem é obrigatório");
+  if (!this.body.status) this.errors.push("Status é obrigatório");
 };
 
 Pedido.prototype.cleanUp = function () {
@@ -47,12 +50,14 @@ Pedido.prototype.cleanUp = function () {
   }
 
   this.body = {
+    vencimentoOriginal: this.body.vencimentoOriginal,
     dataPagamento: this.body.dataPagamento,
     classificacao: this.body.classificacao,
     valor: this.body.valor,
     tipoConta: this.body.tipoConta,
     cliente: this.body.cliente,
     origem: this.body.origem,
+    status: this.body.status,
   };
 };
 
@@ -76,7 +81,5 @@ Pedido.buscarPedidos = async function () {
   const pedidos = await PedidoModel.find().sort({ criadoEm: -1 });
   return pedidos;
 };
-
-
 
 module.exports = Pedido;
