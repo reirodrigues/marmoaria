@@ -1,0 +1,40 @@
+<%- include('includes/head')%> <%- include('includes/nav')%>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-2"></div>
+
+    <div class="col-lg-8 my-5">
+      <h1 class="text-center">Cadastrar nova origem</h1>
+      <p class="text-center">Insira os dados da origem e clique em 'Salvar'</p>
+
+      <%- include('includes/messages')%>
+
+      <% if(origem._id) { %> 
+        <form action="/origem/edit/<%= origem._id %> " method="POST" class="my-5">
+
+        <% } else { %> 
+
+          <form action="/origem/register" method="POST" class="my-5">
+        <% } %> 
+
+        <div class="form-row">
+          <div class="form-group my-3">
+            <label for="inputEmail4">Origem:</label>
+            <input
+              value="<%= origem.origem %>"
+              type="text"
+              class="form-control"
+              name="origem"
+            />
+          </div>
+        <div class="d-flex justify-content-between">
+          <button type="submit" class="btn btn-primary my-3">Salvar</button>
+          <a class="btn btn-primary my-3" href="/origem/home" role="button">Voltar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <%- include('includes/footer')%>
+</div>

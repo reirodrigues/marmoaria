@@ -6,6 +6,7 @@ const loginController = require("./src/controllers/loginController");
 const pedidoController = require("./src/controllers/pedidoController");
 const clienteController = require("./src/controllers/clienteController");
 const contaController = require("./src/controllers/contaController");
+const origemController = require("./src/controllers/OrigemController");
 
 const { loginRequired } = require("./src/middlewares/middleware");
 
@@ -32,12 +33,19 @@ route.get("/cliente/:id", loginRequired, clienteController.editIndex);
 route.post("/cliente/edit/:id", loginRequired, clienteController.edit);
 
 // Rotas de tipos de contas
-
 route.get("/conta/home", loginRequired, homeController.contaIndex);
 
 route.get("/conta", loginRequired, contaController.index);
 route.post("/conta/register", loginRequired, contaController.register);
 route.get("/conta/:id", loginRequired, contaController.editIndex);
 route.post("/conta/edit/:id", loginRequired, contaController.edit);
+
+// Rotas de tipos de contas
+route.get("/origem/home", loginRequired, homeController.origemIndex);
+
+route.get("/origem", loginRequired, origemController.index);
+route.post("/origem/register", loginRequired, origemController.register);
+route.get("/origem/:id", loginRequired, origemController.editIndex);
+route.post("/origem/edit/:id", loginRequired, origemController.edit);
 
 module.exports = route;
