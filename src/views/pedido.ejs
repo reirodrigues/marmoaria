@@ -40,12 +40,11 @@
           
           <div class="form-group my-3">
             <label for="inputPassword4">Classificação:</label>
-            <input
-            value="<%= pedido.classificacao %>"
-            type="text"
-            class="form-control"
-            name="classificacao"
-          />
+            <select value="<%= pedido.classificacao %>" name="classificacao" class="form-select" aria-label="Default select example">
+            <option value="" disabled selected hidden>Selecione a classificação...</option>
+              <option>Entrada</option>
+              <option>Saída</option>
+            </select>
           </div>
         </div>
         <div class="form-group my-3">
@@ -97,12 +96,15 @@
 
         <div class="form-group my-3">
           <label for="inputAddress2">Status:</label>
-          <input
-            value="<%= pedido.status %>"
-            type="text"
-            class="form-control"
-            name="status"
-          />
+
+          <select value="<%= pedido.status %>" name="status" id="select-state4" class="form-select" aria-label="Default select example">
+            <option value="" disabled selected hidden>Selecione o status...</option>
+            <option>Pago</option>
+            <option>Atrasado</option>
+            <option>Provisão</option>
+            <option>Pago adiantado</option>
+          </select>
+
         </div>
         
         <div class="d-flex justify-content-between">
