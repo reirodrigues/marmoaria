@@ -6,7 +6,7 @@ const loginController = require("./src/controllers/loginController");
 const pedidoController = require("./src/controllers/pedidoController");
 const clienteController = require("./src/controllers/clienteController");
 const contaController = require("./src/controllers/contaController");
-const origemController = require("./src/controllers/OrigemController");
+const origemController = require("./src/controllers/origemController");
 
 const { loginRequired } = require("./src/middlewares/middleware");
 
