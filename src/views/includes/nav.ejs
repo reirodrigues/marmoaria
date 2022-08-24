@@ -1,13 +1,19 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <% if(user) { %>
-    <a class="navbar-brand" href="/">Controle</a>
-    <a class="navbar-brand" href="/cliente/home">Clientes</a>
-    <a class="navbar-brand" href="/conta/home">Contas</a>
-    <a class="navbar-brand" href="/origem/home">Origem</a>
+
+    <button
+      class="btn btn-outline-primary"
+      type="button"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasWithBothOptions"
+      aria-controls="offcanvasWithBothOptions"
+    >
+      Menu
+    </button>
 
     <% } else { %>
-    <a class="navbar-brand" href="/">Marmoaria</a>
+    <a class="navbar-brand" href="/"></a>
     <% } %>
 
     <button

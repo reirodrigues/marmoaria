@@ -34,5 +34,49 @@
       crossorigin="anonymous"
     />
   </head>
-  <body class="bg-secondary bg-gradient bg-opacity-10"></body>
+  <body class="bg-secondary bg-gradient bg-opacity-10">
+    <div
+      class="offcanvas offcanvas-start"
+      data-bs-scroll="true"
+      tabindex="-1"
+      id="offcanvasWithBothOptions"
+      aria-labelledby="offcanvasWithBothOptionsLabel"
+    >
+      <div class="offcanvas-header">
+        <h1 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Menu</h1>
+        <button
+          type="button"
+          class="btn-close text-reset"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="offcanvas-body">
+        <h3 class="my-3">Escolha o menu desejado.</h3>
+
+        <div class="list-group">
+          <a
+            href="/"
+            class="my-3 align-self-center btn btn-outline-primary w-75 p-3"
+            >Controle</a
+          >
+          <a
+            href="/cliente/home"
+            class="my-3 align-self-center btn btn-outline-primary w-75 p-3"
+            >Clientes</a
+          >
+          <a
+            href="/conta/home"
+            class="my-3 align-self-center btn btn-outline-primary w-75 p-3"
+            >Contas</a
+          >
+          <a
+            href="/origem/home"
+            class="my-3 align-self-center btn btn-outline-primary w-75 p-3"
+            >Origem</a
+          >
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
