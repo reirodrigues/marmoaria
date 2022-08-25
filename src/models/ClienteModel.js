@@ -19,10 +19,18 @@ function Cliente(body) {
 
 Cliente.prototype.register = async function () {
   this.valida();
+  if (this.errors.length > 0) return;
+
+  await this.userExists();
 
   if (this.errors.length > 0) return;
   this.success.push("Cliente cadastrado com sucesso");
   this.cliente = await ClienteModel.create(this.body);
+};
+
+Cliente.prototype.userExists = async function () {
+  const user = await ClienteModel.findOne({ cnpj: this.body.cnpj });
+  if (user) this.errors.push("Cliente já existe no banco de dados");
 };
 
 Cliente.prototype.valida = function () {

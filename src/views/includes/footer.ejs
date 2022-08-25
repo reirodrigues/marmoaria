@@ -16,6 +16,8 @@ crossorigin="anonymous"
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 
+
+
 <script src="../assets/js/index.js"></script>
 
 <!-- Select com search -->
@@ -102,6 +104,22 @@ crossorigin="anonymous"
       }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)')
     });
 </script>
+
+<!-- Mask form cliente -->
+<script>
+$(document).on('keydown', '[data-mask-for-cpf-cnpj]', function (e) {
+
+var digit = e.key.replace(/\D/g, '');
+
+var value = $(this).val().replace(/\D/g, '');
+
+var size = value.concat(digit).length;
+
+$(this).mask((size <= 11) ? '000.000.000-00' : '00.000.000/0000-00');
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+
 
 
 </body>
