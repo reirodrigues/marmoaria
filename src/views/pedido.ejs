@@ -39,10 +39,10 @@
           </div>
           <div class="form-group my-3">
             <label class="form-label">Tipo de conta:</label>
-            <select name="tipoConta" id="select-state" placeholder="Selecione o tipo da conta...">
+            <select name="tipoConta" id="select-state" placeholder="Selecione o tipo da conta..." onchange="_onSelect()">
               <option value="">Slecione o cliente</option>
               <% contas.forEach(conta => { %>
-                <option value="<%= conta.tipoConta %>"><%= conta.tipoConta %></option>
+                <option value="<%= conta.tipoConta %>,<%= conta.entrada || false %>,<%= conta.saida || false %>"><%= conta.tipoConta %></option>
             <% }); %>
             </select>
   
@@ -51,10 +51,10 @@
           
           <div class="form-group my-3">
             <label for="inputPassword4">Classificação:</label>
-            <select value="<%= pedido.classificacao %>" name="classificacao" class="form-select" aria-label="Default select example">
+            <select name="classificacao" class="form-select" aria-label="Default select example">
             <option value="" disabled selected hidden>Selecione a classificação...</option>
-              <option>Entrada</option>
-              <option>Saída</option>
+              <option value="batata">Entrada</option>
+              <option value="Saida">Saída</option>
             </select>
           </div>
         </div>
@@ -106,8 +106,7 @@
             <option>Pago adiantado</option>
           </select>
 
-        </div>
-        
+        </div>        
         <div class="d-flex justify-content-between">
           <button type="submit" class="btn btn-primary my-3">Salvar</button>
           <a class="btn btn-primary my-3" href="/" role="button">Voltar</a>
@@ -115,6 +114,21 @@
       </form>
     </div>
   </div>
+  <script>
+    function _onSelect() {
+      const data = event.target.getAttribute('data-value').split(',');
+      const $classificacao = document.getElementsByName("classificacao")[0];      
 
+      if(data[1] == 'true' && data[2] == 'false') {
+        $classificacao.value = 'batata';
+        $classificacao.disabled = true;
+      } else if(data[2] == 'true' && data[1] == 'false') {
+        $classificacao.value = 'Saida';
+        $classificacao.disabled = true;
+      } else {        
+        $classificacao.disabled = false;
+      }      
+    }
+  </script>
   <%- include('includes/footer')%>
 </div>

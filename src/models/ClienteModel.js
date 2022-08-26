@@ -25,7 +25,12 @@ Cliente.prototype.register = async function () {
 
   if (this.errors.length > 0) return;
   this.success.push("Cliente cadastrado com sucesso");
-  this.cliente = await ClienteModel.create(this.body);
+  const cliente = await ClienteModel.create(this.body);
+
+  // this.body.enderecos.map(endereco => {
+  //   endereco.id_cliente = cliente.id
+  //   EnderecoModel.create(endereco)
+  // })
 };
 
 Cliente.prototype.userExists = async function () {

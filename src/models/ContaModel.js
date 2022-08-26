@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 
 const ContaSchema = new mongoose.Schema({
   tipoConta: { type: String, required: true },
+  entrada: { type: Boolean },
+  saida: { type: Boolean },
   criadoEm: { type: Date, default: Date.now },
 });
 
@@ -24,6 +26,14 @@ Conta.prototype.register = async function () {
 
 Conta.prototype.valida = function () {
   this.cleanUp();
+  
+  if (this.body.entrada == 'true') {
+    this.body.entrada = true;
+  }
+
+  if (this.body.saida == 'true') {
+    this.body.saida = true;
+  }
 
   if (!this.body.tipoConta) this.errors.push("Conta é um campo obrigatório");
 };
@@ -37,6 +47,8 @@ Conta.prototype.cleanUp = function () {
 
   this.body = {
     tipoConta: this.body.tipoConta,
+    entrada: this.body.entrada,
+    saida: this.body.saida,
   };
 };
 
