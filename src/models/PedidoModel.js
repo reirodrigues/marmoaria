@@ -40,14 +40,6 @@ Pedido.prototype.valida = function () {
   if (!this.body.cliente) this.errors.push("Cliente é obrigatório");
   if (!this.body.origem) this.errors.push("Origem é obrigatório");
   if (!this.body.status) this.errors.push("Status é obrigatório");
-
-  // const classificacao = this.body.classificacao;
-
-  // if (classificacao.toUpperCase() == "ENTRADA") {
-  //   this.body.classificacao = true;
-  // } else {
-  //   this.body.classificacao = false;
-  // }
 };
 
 Pedido.prototype.cleanUp = function () {

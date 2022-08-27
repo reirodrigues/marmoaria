@@ -40,7 +40,7 @@ Cliente.prototype.register = async function () {
 Cliente.prototype.userExists = async function () {
   // const clientePJ = await ClienteModel.findOne({ cnpj: this.body.cnpj });
   // const clientePF = await ClienteModel.findOne({ cpf: this.body.cpf });
-  // if (clientePJ) this.errors.push("Cliente já existe no banco de dados");
+  // if (clientePJ) this.errors.push("Cliente PJ já existe no banco de dados");
   // if (clientePF) this.errors.push("Cliente já existe no banco de dados");
 };
 
