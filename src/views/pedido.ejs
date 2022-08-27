@@ -40,7 +40,7 @@
           <div class="form-group my-3">
             <label class="form-label">Tipo de conta:</label>
             <select name="tipoConta" id="select-state" placeholder="Selecione o tipo da conta..." onchange="_onSelect()">
-              <option value="">Slecione o cliente</option>
+              <option value="">Slecione o Tipo de conta</option>
               <% contas.forEach(conta => { %>
                 <option value="<%= conta.tipoConta %>,<%= conta.entrada || false %>,<%= conta.saida || false %>"><%= conta.tipoConta %></option>
             <% }); %>
@@ -77,7 +77,8 @@
           <select name="cliente" id="select-state2" placeholder="Selecione o cliente...">
             <option value="">Slecione o cliente</option>
             <% clientes.forEach(cliente => { %>
-              <option value="<%= cliente.nome %>"><%= cliente.nome %></option>
+              <option value="<%= cliente.nome %>"><%= cliente.nome %> / <%= cliente.cpf %></option>
+              <option value="<%= cliente.razaoSocial %>"><%= cliente.razaoSocial %> / <%= cliente.cnpj %></option>
           <% }); %>
           </select>
 

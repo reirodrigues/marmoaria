@@ -1,10 +1,14 @@
 const mongoose = require("mongoose");
 
 const ClienteSchema = new mongoose.Schema({
-  nome: { type: String, required: true },
-  cnpj: { type: String, required: true },
-  telefone: { type: String, required: true },
-  endereco: { type: String, required: true },
+  cpf: { type: String },
+  nome: { type: String },
+  telefone: { type: String },
+  endereco: { type: String },
+  email: { type: String },
+  cnpj: { type: String },
+  nomeFantasia: { type: String },
+  razaoSocial: { type: String },
   criadoEm: { type: Date, default: Date.now },
 });
 
@@ -34,17 +38,19 @@ Cliente.prototype.register = async function () {
 };
 
 Cliente.prototype.userExists = async function () {
-  const user = await ClienteModel.findOne({ cnpj: this.body.cnpj });
-  if (user) this.errors.push("Cliente já existe no banco de dados");
+  // const clientePJ = await ClienteModel.findOne({ cnpj: this.body.cnpj });
+  // const clientePF = await ClienteModel.findOne({ cpf: this.body.cpf });
+  // if (clientePJ) this.errors.push("Cliente já existe no banco de dados");
+  // if (clientePF) this.errors.push("Cliente já existe no banco de dados");
 };
 
 Cliente.prototype.valida = function () {
   this.cleanUp();
 
-  if (!this.body.nome) this.errors.push("Nome é um campo obrigatório");
-  if (!this.body.cnpj) this.errors.push("CNPJ é um campo obrigatório");
-  if (!this.body.telefone) this.errors.push("Telefone é um campo obrigatório");
-  if (!this.body.endereco) this.errors.push("Endereço é um campo obrigatório");
+  // if (!this.body.nome) this.errors.push("Nome é um campo obrigatório");
+  // if (!this.body.cnpj) this.errors.push("CNPJ é um campo obrigatório");
+  // if (!this.body.telefone) this.errors.push("Telefone é um campo obrigatório");
+  // if (!this.body.endereco) this.errors.push("Endereço é um campo obrigatório");
 };
 
 Cliente.prototype.cleanUp = function () {
@@ -55,8 +61,13 @@ Cliente.prototype.cleanUp = function () {
   }
 
   this.body = {
+    cpf: this.body.cpf,
     nome: this.body.nome,
+    telefone: this.body.telefone,
+    email: this.body.email,
     cnpj: this.body.cnpj,
+    nomeFantasia: this.body.nomeFantasia,
+    razaoSocial: this.body.razaoSocial,
     telefone: this.body.telefone,
     endereco: this.body.endereco,
   };

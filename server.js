@@ -23,6 +23,7 @@ const {
   csrfMiddleware,
 } = require("./src/middlewares/middleware");
 
+const port = process.env.PORT;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.resolve(__dirname, "public")));
@@ -51,8 +52,8 @@ app.use(csrfMiddleware);
 app.use(routes);
 
 app.on("pronto", () => {
-  app.listen(3001, () => {
-    console.log("Acessar http://localhost:3001");
-    console.log("Servidor executando na porta 3001");
+  app.listen(port, () => {
+    console.log(`Acessar http://localhost:${port}`);
+    console.log(`Servidor executando na porta ${port}`);
   });
 });

@@ -10,38 +10,136 @@
 
       <%- include('includes/messages')%>
 
-      <form action="/cliente/register" method="POST" class="my-5">
-        <div class="form-row">
-          <div class="form-group">
-            <label for="inputEmail4">Nome:</label>
-            <input type="text" class="form-control" name="nome" />
-          </div>
-          <div class="form-group my-3">
-            <label for="inputPassword4">CNPJ/CPF:</label>
-            <input
-              type="text"
-              class="form-control"
-              name="cnpj"
-              data-mask-for-cpf-cnpj
-            />
-          </div>
-        </div>
-        <div class="form-group my-3">
-          <label for="inputAddress">Telefone</label>
-          <input type="tel" class="form-control" name="telefone" />
-        </div>
-        <div class="form-group my-3">
-          <label for="inputAddress2">Endereço</label>
-          <input type="text" class="form-control" name="endereco" />
-        </div>
-
-        <div class="d-flex justify-content-between">
-          <button type="submit" class="btn btn-primary my-3">Salvar</button>
-          <a class="btn btn-primary my-3" href="/cliente/home" role="button"
-            >Voltar</a
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <a
+            href="#tabPF"
+            class="nav-link active"
+            id="linkPF"
+            data-bs-toggle="tab"
+            role="tab"
+            aria-controls="tabPF"
+            >Cadastro Pessoa Física</a
           >
+        </li>
+        <li class="nav-item" role="presentation">
+          <a
+            href="#tabPJ"
+            class="nav-link"
+            id="linkPJ"
+            data-bs-toggle="tab"
+            role="tab"
+            aria-controls="tabPJ"
+            >Cadastro Pessoa Jurídica</a
+          >
+        </li>
+      </ul>
+
+      <div class="tab-content" id="meusConteudos">
+        <div
+          class="tab-pane fade show active"
+          id="tabPF"
+          role="tabpanel"
+          aria-labelledby="linkPF"
+        >
+          <form action="/cliente/register" method="POST" class="my-5">
+            <div class="form-row">
+              <div class="form-group my-3">
+                <label for="inputPassword4">CPF:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="cpf"
+                  data-mask-for-cpf
+                />
+              </div>
+              <div class="form-group">
+                <label for="inputEmail4">Nome:</label>
+                <input type="text" class="form-control" name="nome" />
+              </div>
+            </div>
+            <div class="form-group my-3">
+              <label for="inputAddress">Telefone</label>
+              <input
+                type="tel"
+                class="form-control"
+                name="telefone"
+                data-mask-for-telefone
+              />
+            </div>
+            <div class="form-group my-3">
+              <label for="inputAddress">Email</label>
+              <input type="email" class="form-control" name="email" />
+            </div>
+            <div class="form-group my-3">
+              <label for="inputAddress2">Endereço</label>
+              <input type="text" class="form-control" name="endereco" />
+            </div>
+
+            <div class="d-flex justify-content-between">
+              <button type="submit" class="btn btn-primary my-3">Salvar</button>
+              <a class="btn btn-primary my-3" href="/cliente/home" role="button"
+                >Voltar</a
+              >
+            </div>
+          </form>
         </div>
-      </form>
+      </div>
+      <div class="tab-content" id="meusConteudos">
+        <div
+          class="tab-pane fade"
+          id="tabPJ"
+          role="tabpanel"
+          aria-labelledby="linkPJ"
+        >
+          <form action="/cliente/register" method="POST" class="my-5">
+            <div class="form-row">
+              <div class="form-group my-3">
+                <label>CNPJ:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="cnpj"
+                  data-mask-for-cnpj
+                />
+              </div>
+              <div class="form-group">
+                <label for="inputEmail4">Nome Fantasia:</label>
+                <input type="text" class="form-control" name="nomeFantasia" />
+              </div>
+            </div>
+            <div class="form-group my-3">
+              <label for="inputAddress">Razão Social</label>
+              <input type="text" class="form-control" name="razaoSocial" />
+            </div>
+            <div class="form-group my-3">
+              <label for="inputAddress">Email</label>
+              <input type="email" class="form-control" name="email" />
+            </div>
+            <div class="form-group my-3">
+              <label for="inputAddress">Telefone</label>
+              <input
+                type="tel"
+                class="form-control"
+                id="telefone"
+                name="Telefone"
+                data-mask-for-telefone
+              />
+            </div>
+            <div class="form-group my-3">
+              <label for="inputAddress2">Endereço</label>
+              <input type="text" class="form-control" name="endereco" />
+            </div>
+
+            <div class="d-flex justify-content-between">
+              <button type="submit" class="btn btn-primary my-3">Salvar</button>
+              <a class="btn btn-primary my-3" href="/cliente/home" role="button"
+                >Voltar</a
+              >
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 
