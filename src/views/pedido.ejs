@@ -53,7 +53,7 @@
             <label for="inputPassword4">Classificação:</label>
             <select name="classificacao" class="form-select" aria-label="Default select example">
             <option value="" disabled selected hidden>Selecione a classificação...</option>
-              <option value="batata">Entrada</option>
+              <option value="Entrada">Entrada</option>
               <option value="Saida">Saída</option>
             </select>
           </div>
@@ -114,13 +114,15 @@
       </form>
     </div>
   </div>
+
+  <!-- Definir classificação pelo tipo de conta -->
   <script>
     function _onSelect() {
       const data = event.target.getAttribute('data-value').split(',');
       const $classificacao = document.getElementsByName("classificacao")[0];      
 
       if(data[1] == 'true' && data[2] == 'false') {
-        $classificacao.value = 'batata';
+        $classificacao.value = 'Entrada';
         $classificacao.disabled = true;
       } else if(data[2] == 'true' && data[1] == 'false') {
         $classificacao.value = 'Saida';
@@ -130,5 +132,6 @@
       }      
     }
   </script>
+
   <%- include('includes/footer')%>
 </div>

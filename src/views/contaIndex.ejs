@@ -25,6 +25,7 @@
         <thead>
           <tr>
             <th>Tipo de conta</th>
+            <th>Classificação</th>
             <th>Ações</th>
           </tr>
         </thead>
@@ -32,6 +33,10 @@
           <% contas.forEach(conta => { %>
           <tr>
             <td><%= conta.tipoConta %></td>
+            <td>
+              <% if(conta.entrada && conta.saida) { %> Entrada / Saída <% } else
+              if(conta.saida) { %> Saída <% } else { %> Entrada <% } %>
+            </td>
             <td><a href="/conta/<%= conta._id%>">Editar</a></td>
           </tr>
           <% }); %>
