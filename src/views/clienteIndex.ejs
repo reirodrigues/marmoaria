@@ -64,13 +64,13 @@
               </tr>
             </thead>
             <tbody>
-              <% clientes.forEach(cliente => { %>
+              <% clientesPF.forEach(clientePF => { %>
               <tr>
-                <td><%= cliente.nome %></td>
-                <td><%= cliente.cpf %></td>
-                <td><%= cliente.telefone %></td>
-                <td><%= cliente.endereco %></td>
-                <td><a href="/cliente/<%= cliente._id%>">Editar</a></td>
+                <td><%= clientePF.nome %></td>
+                <td><%= clientePF.cpf %></td>
+                <td><%= clientePF.telefone %></td>
+                <td><%= clientePF.endereco %></td>
+                <td><a href="/cliente/<%= clientePF._id%>">Editar</a></td>
               </tr>
               <% }); %>
             </tbody>
@@ -93,6 +93,7 @@
             <thead>
               <tr>
                 <th>Razão Social</th>
+                <th>Nome Fantasia</th>
                 <th>CNPJ</th>
                 <th>Telefone</th>
                 <th>Endereço</th>
@@ -100,13 +101,14 @@
               </tr>
             </thead>
             <tbody>
-              <% clientes.forEach(cliente => { %>
+              <% clientesPJ.forEach(clientePJ => { %>
               <tr>
-                <td><%= cliente.nome %></td>
-                <td><%= cliente.cnpj %></td>
-                <td><%= cliente.telefone %></td>
-                <td><%= cliente.endereco %></td>
-                <td><a href="/cliente/<%= cliente._id%>">Editar</a></td>
+                <td><%= clientePJ.razaoSocial %></td>
+                <td><%= clientePJ.nomeFantasia %></td>
+                <td><%= clientePJ.cnpj %></td>
+                <td><%= clientePJ.telefone %></td>
+                <td><%= clientePJ.endereco %></td>
+                <td><a href="/cliente/<%= clientePJ._id%>">Editar</a></td>
               </tr>
               <% }); %>
             </tbody>

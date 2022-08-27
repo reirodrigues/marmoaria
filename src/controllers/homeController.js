@@ -9,8 +9,9 @@ exports.index = async (req, res) => {
 };
 
 exports.clienteIndex = async (req, res) => {
-  const clientes = await Cliente.buscarClientes();
-  res.render("clienteIndex", { clientes });
+  const clientesPF = await Cliente.buscarClientesPF();
+  const clientesPJ = await Cliente.buscarClientesPJ();
+  res.render("clienteIndex", { clientesPF, clientesPJ });
 };
 
 exports.contaIndex = async (req, res) => {

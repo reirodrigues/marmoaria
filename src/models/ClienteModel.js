@@ -90,9 +90,17 @@ Cliente.buscarPorId = async function (id) {
   return cliente;
 };
 
-Cliente.buscarClientes = async function () {
-  const cliente = await ClienteModel.find().sort({ criadoEm: -1 });
-  return cliente;
+Cliente.buscarClientesPF = async function () {
+  const clientePF = await ClienteModel.find({ cpf: { $exists: true } }).sort({
+    criadoEm: -1,
+  });
+  return clientePF;
+};
+Cliente.buscarClientesPJ = async function () {
+  const clientePJ = await ClienteModel.find({ cnpj: { $exists: true } }).sort({
+    criadoEm: -1,
+  });
+  return clientePJ;
 };
 
 module.exports = Cliente;
