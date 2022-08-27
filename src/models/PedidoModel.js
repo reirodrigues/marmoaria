@@ -21,7 +21,9 @@ function Pedido(body) {
   this.pedido = null;
 }
 
-Pedido.prototype.register = async function () {
+Pedido.prototype.register = async function () {  
+  console.table(this.body)
+
   this.valida();
 
   if (this.errors.length > 0) return;
@@ -40,6 +42,16 @@ Pedido.prototype.valida = function () {
   if (!this.body.cliente) this.errors.push("Cliente é obrigatório");
   if (!this.body.origem) this.errors.push("Origem é obrigatório");
   if (!this.body.status) this.errors.push("Status é obrigatório");
+
+  if (this.body.classificacao.toUpperCase() == 'ENTRADA') {
+    this.body.classificacao = true;
+  } else {
+    this.body.classificacao = false;
+  }
+
+  this.body.valor = parseFloat(this.body.valor.replace(',', '.'));
+
+  this.body.tipoConta = this.body.tipoConta.split(',')[0];
 };
 
 Pedido.prototype.cleanUp = function () {
@@ -48,17 +60,6 @@ Pedido.prototype.cleanUp = function () {
       this.body[key] = "";
     }
   }
-
-  this.body = {
-    vencimentoOriginal: this.body.vencimentoOriginal,
-    dataPagamento: this.body.dataPagamento,
-    classificacao: this.body.classificacao,
-    valor: this.body.valor,
-    tipoConta: this.body.tipoConta,
-    cliente: this.body.cliente,
-    origem: this.body.origem,
-    status: this.body.status,
-  };
 };
 
 Pedido.prototype.edit = async function (id) {
