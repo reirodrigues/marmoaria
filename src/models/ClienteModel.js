@@ -90,6 +90,12 @@ Cliente.buscarPorId = async function (id) {
   return cliente;
 };
 
+Cliente.buscarClientes = async function () {
+  const cliente = await ClienteModel.find().sort({
+    criadoEm: -1,
+  });
+  return cliente;
+};
 Cliente.buscarClientesPF = async function () {
   const clientePF = await ClienteModel.find({ cpf: { $exists: true } }).sort({
     criadoEm: -1,
