@@ -49,6 +49,8 @@ Pedido.prototype.valida = function () {
     this.body.classificacao = false;
   }
 
+  this.body.valor = parseFloat(this.body.valor.replace(',', '.'));
+
   this.body.tipoConta = this.body.tipoConta.split(',')[0];
 };
 
