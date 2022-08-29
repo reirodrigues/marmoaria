@@ -38,10 +38,14 @@ Cliente.prototype.register = async function () {
 };
 
 Cliente.prototype.userExists = async function () {
-  // const clientePJ = await ClienteModel.findOne({ cnpj: this.body.cnpj });
-  // const clientePF = await ClienteModel.findOne({ cpf: this.body.cpf });
-  // if (clientePJ) this.errors.push("Cliente PJ já existe no banco de dados");
-  // if (clientePF) this.errors.push("Cliente já existe no banco de dados");
+  if (this.body.cnpj) {
+    const clientePJ = await ClienteModel.findOne({ cnpj: this.body.cnpj });
+    if (clientePJ) this.errors.push("Cliente PJ já existe no banco de dados");
+  }
+  if (this.body.cpf) {
+    const clientePF = await ClienteModel.findOne({ cpf: this.body.cpf });
+    if (clientePF) this.errors.push("Cliente já existe no banco de dados");
+  }
 };
 
 Cliente.prototype.valida = function () {
@@ -59,18 +63,6 @@ Cliente.prototype.cleanUp = function () {
       this.body[key] = "";
     }
   }
-
-  this.body = {
-    cpf: this.body.cpf,
-    nome: this.body.nome,
-    telefone: this.body.telefone,
-    email: this.body.email,
-    cnpj: this.body.cnpj,
-    nomeFantasia: this.body.nomeFantasia,
-    razaoSocial: this.body.razaoSocial,
-    telefone: this.body.telefone,
-    endereco: this.body.endereco,
-  };
 };
 
 Cliente.prototype.edit = async function (id) {
