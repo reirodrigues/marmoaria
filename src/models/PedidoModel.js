@@ -21,9 +21,7 @@ function Pedido(body) {
   this.pedido = null;
 }
 
-Pedido.prototype.register = async function () {  
-  console.table(this.body)
-
+Pedido.prototype.register = async function () {
   this.valida();
 
   if (this.errors.length > 0) return;
@@ -43,15 +41,15 @@ Pedido.prototype.valida = function () {
   if (!this.body.origem) this.errors.push("Origem é obrigatório");
   if (!this.body.status) this.errors.push("Status é obrigatório");
 
-  if (this.body.classificacao.toUpperCase() == 'ENTRADA') {
+  if (this.body.classificacao.toUpperCase() == "ENTRADA") {
     this.body.classificacao = true;
   } else {
     this.body.classificacao = false;
   }
 
-  this.body.valor = parseFloat(this.body.valor.replace(',', '.'));
+  this.body.valor = parseFloat(this.body.valor.replace(",", "."));
 
-  this.body.tipoConta = this.body.tipoConta.split(',')[0];
+  this.body.tipoConta = this.body.tipoConta.split(",")[0];
 };
 
 Pedido.prototype.cleanUp = function () {
