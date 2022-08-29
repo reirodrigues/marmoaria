@@ -40,12 +40,18 @@ exports.editIndex = async (req, res) => {
   if (!req.params.id) return res.render("404");
 
   const clientes = await Cliente.buscarClientes();
-
   const pedido = await Pedido.buscarPorId(req.params.id);
+  const contas = await Conta.buscarContas();
+  const origens = await Origem.buscarOrigens();
 
   if (!pedido) return res.render("404");
 
-  res.render("editar", { pedido: pedido, clientes: clientes });
+  res.render("editar", {
+    pedido: pedido,
+    clientes: clientes,
+    contas: contas,
+    origens: origens,
+  });
 };
 
 exports.edit = async (req, res) => {

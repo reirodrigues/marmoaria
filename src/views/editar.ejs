@@ -11,98 +11,124 @@
       <%- include('includes/messages')%>
 
       <% if(pedido._id) { %> 
-        <form action="/pedido/edit/<%= pedido._id %> " method="POST" class="my-5">
-
+        <form action="/pedido/edit/<%= pedido._id %> " method="POST" onsubmit="_submit()" class="my-5">
         <% } else { %> 
-
-          <form action="/pedido/register" method="POST" class="my-5">
         <% } %> 
 
 
-        <div class="form-row">
-          <div class="form-group my-3">
-            <label for="inputEmail4">Vencimento Original:</label>
-            <input
-              value="<%= pedido.vencimentoOriginal %>"
-              type="date"
-              class="form-control"
-              name="vencimentoOriginal"
-            />
-          <div class="form-group my-3">
-            <label for="inputEmail4">Data pagamento:</label>
-            <input
-              value="<%= pedido.dataPagamento %>"
-              type="date"
-              class="form-control"
-              name="dataPagamento"
-            />
-          </div>
-          
-          <div class="form-group my-3">
-            <label for="inputPassword4">Classificação:</label>
-            <input
-            value="<%= pedido.classificacao %>"
-            type="text"
-            class="form-control"
-            name="classificacao"
-          />
-          </div>
-        </div>
-        <div class="form-group my-3">
-          <label for="inputAddress">Valor:</label>
-          <input
-            value="<%= pedido.valor %>"
-            type="number"
-            min="0.00" 
-            max="10000000.00" 
-            step="0.01"
-            class="form-control"
-            name="valor"
-          />
-        </div>
-        <div class="form-group my-3">
-          <label for="inputAddress2">Tipo conta:</label>
-          <input
-            value="<%= pedido.tipoConta %>"
-            type="text"
-            class="form-control"
-            name="tipoConta"
-          />
-        </div>
-        <div class="form-group my-3">
-          <label for="inputAddress2">Cliente:</label>
-          <input
-            value="<%= pedido.cliente %>"
-            type="text"
-            class="form-control"
-            name="cliente"
-          />
-        </div>
-        <div class="form-group my-3">
-          <label for="inputAddress2">Origem:</label>
-          <input
-            value="<%= pedido.origem %>"
-            type="text"
-            class="form-control"
-            name="origem"
-          />
-        <div class="form-group my-3">
-          <label for="inputAddress2">Status:</label>
-          <input
-            value="<%= pedido.status %>"
-            type="text"
-            class="form-control"
-            name="status"
-          />
-        </div>
-        
 
-        
+          <div class="form-row">
+            <div class="form-group my-3">
 
-        <button type="submit" class="btn btn-primary my-3">Salvar</button>
-      </form>
+              <div  class="form-group my-3">
+                <label for="inputEmail4">Vencimento Original:</label>
+                <input value="<%= pedido.vencimentoOriginal %>" type="date" class="form-control" name="vencimentoOriginal" />
+              </div>
+
+              <div class="form-group my-3">
+                <label for="inputEmail4">Data pagamento:</label>
+                <input value="<%= pedido.dataPagamento %>" type="date" class="form-control" name="dataPagamento" />
+              </div>
+
+              <div class="form-group my-3">
+                <label class="form-label">Tipo de conta:</label>
+                <select name="tipoConta" id="select-state" placeholder="Selecione o tipo da conta..."
+                  onchange="_onSelect()">
+                  <option value="">Selecione o Tipo de conta</option>
+                  <% contas.forEach(conta=> { %>
+                    <option
+                      value="<%= conta.tipoConta %>,<%= conta.entrada || false %>,<%= conta.saida || false %>">
+                      <%= conta.tipoConta %>
+                    </option>
+                    <% }); %>
+                </select>
+              </div>
+
+              <div class="form-group my-3">
+                <label for="classificacao">Classificação:</label>
+                <select name="classificacao" class="form-select" aria-label="Default select example">
+                  <option selected hidden>Selecione a classificação...</option>
+                  <option value="Entrada">Entrada</option>
+                  <option value="Saida">Saída</option>
+                </select>
+              </div>                  
+            </div>
+
+            <div class="form-group my-3">
+              <label for="inputAddress">Valor:</label>
+              <input value="<%= pedido.valor %>" type="number" min="0.00" max="10000000.00" step="0.01" class="form-control" name="valor" />
+            </div>
+
+            <div class="form-group my-3">
+              <label class="form-label">Cliente:</label>
+              <select name="cliente" id="select-state2" placeholder="Selecione o cliente...">
+                <option value="">Slecione o cliente</option>
+                <% clientes.forEach(cliente=> { %>
+                  <option value="<%= cliente.nome %>">
+                    <%= cliente.nome %> / <%= cliente.cpf %>
+                  </option>
+                  <option value="<%= cliente.razaoSocial %>">
+                    <%= cliente.razaoSocial %> / <%= cliente.cnpj %>
+                  </option>
+                  <% }); %>
+              </select>
+            </div>
+
+            <div class="form-group my-3">
+              <label class="form-label">Origem:</label>
+              <select name="origem" id="select-state3" placeholder="Selecione a origem...">
+                <option value="">Selecione a origem</option>
+                <% origens.forEach(origem=> { %>
+                  <option value="<%= origem.origem %>">
+                    <%= origem.origem %>
+                  </option>
+                  <% }); %>
+              </select>
+            </div>
+
+            <div class="form-group my-3">
+              <label for="inputAddress2">Status:</label>
+              <select value="<%= pedido.status %>" name="status" id="select-state4" class="form-select"
+                aria-label="Default select example">
+                <option value="" disabled selected hidden>Selecione o status...</option>
+                <option>Pago</option>
+                <option>Atrasado</option>
+                <option>Provisão</option>
+                <option>Pago adiantado</option>
+              </select>
+            </div>
+
+            <div class="d-flex justify-content-between">
+              <button type="submit" class="btn btn-primary my-3">Salvar</button>
+              <a class="btn btn-primary my-3" href="/" role="button">Voltar</a>
+            </div>
+        </form>
     </div>
   </div>
+
+  <!-- Definir classificação pelo tipo de conta -->
+  <script>
+    function _onSelect() {
+      const data = event.target.getAttribute('data-value').split(',');
+      const $classificacao = document.getElementsByName("classificacao")[0];
+
+      if (data[1] == 'true' && data[2] == 'false') {
+        $classificacao.value = 'Entrada';
+        $classificacao.disabled = true;
+      } else if (data[2] == 'true' && data[1] == 'false') {
+        $classificacao.value = 'Saida';
+        $classificacao.disabled = true;
+      } else {
+        $classificacao.disabled = false;
+      }
+    }
+
+    function _submit() {
+      const $classificacao = document.getElementsByName("classificacao")[0];
+      $classificacao.disabled = false;
+    }
+  </script>
+
 
   <%- include('includes/footer')%>
 </div>
