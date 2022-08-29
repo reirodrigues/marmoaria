@@ -1,5 +1,5 @@
-<%- include('includes/head')%>
-  <%- include('includes/nav')%>
+<%- include('../includes/head')%>
+  <%- include('../includes/nav')%>
 
     <div class="container">
       <div class="row">
@@ -9,11 +9,9 @@
           <h1 class="text-center">Cadastrar novo pedido</h1>
           <p class="text-center">Insira os dados do pedido e clique em 'Salvar'</p>
 
-          <%- include('includes/messages')%>
+          <%- include('../includes/messages')%>
 
             <form action="/pedido/register" method="POST" onsubmit="_submit()" class="my-5">
-
-
               <div class="form-row">
                 <div class="form-group my-3">
                   <label for="inputEmail4">Vencimento Original:</label>
@@ -81,7 +79,7 @@
 
                 <div class="form-group my-3">
                   <label for="inputAddress2">Status:</label>
-                  <select value="<%= pedido.status %>" name="status" id="select-state4" class="form-select"
+                  <select name="status" id="select-state4" class="form-select"
                     aria-label="Default select example">
                     <option value="" disabled selected hidden>Selecione o status...</option>
                     <option>Pago</option>
@@ -122,5 +120,5 @@
         }
       </script>
 
-      <%- include('includes/footer')%>
+      <%- include('../includes/footer')%>
     </div>

@@ -8,7 +8,7 @@ exports.index = async (req, res) => {
   const contas = await Conta.buscarContas();
   const origens = await Origem.buscarOrigens();
 
-  res.render("pedido", {
+  res.render("pedidos/pedido", {
     pedido: {},
     clientes: clientes,
     contas: contas,
@@ -41,12 +41,13 @@ exports.editIndex = async (req, res) => {
 
   const clientes = await Cliente.buscarClientes();
   const pedido = await Pedido.buscarPorId(req.params.id);
+  console.log(pedido);
   const contas = await Conta.buscarContas();
   const origens = await Origem.buscarOrigens();
 
   if (!pedido) return res.render("404");
 
-  res.render("editar", {
+  res.render("pedidos/pedido_editar", {
     pedido: pedido,
     clientes: clientes,
     contas: contas,
