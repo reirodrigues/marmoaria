@@ -97,13 +97,13 @@ Cliente.buscarClientes = async function () {
   return cliente;
 };
 Cliente.buscarClientesPF = async function () {
-  const clientePF = await ClienteModel.find({ cpf: { $exists: true } }).sort({
+  const clientePF = await ClienteModel.find({ cpf: { $gt: 1 } }).sort({
     criadoEm: -1,
   });
   return clientePF;
 };
 Cliente.buscarClientesPJ = async function () {
-  const clientePJ = await ClienteModel.find({ cnpj: { $exists: true } }).sort({
+  const clientePJ = await ClienteModel.find({ cnpj: { $gt: 1 } }).sort({
     criadoEm: -1,
   });
   return clientePJ;

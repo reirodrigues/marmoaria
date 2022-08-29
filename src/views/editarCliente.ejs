@@ -6,108 +6,119 @@
 
     <div class="col-lg-8 my-3">
       <h1 class="text-center">Editar dados do cliente</h1>
-      <p class="text-center">Substitua os campos desejados depois clique em 'Salvar'</p>
+      <p class="text-center">
+        Substitua os campos desejados depois clique em 'Salvar'
+      </p>
 
       <%- include('includes/messages')%>
 
-      <% if(cliente._id) { %> 
-        <form action="/cliente/edit/<%= cliente._id %> " method="POST" class="my-5">
+      <form
+        action="/cliente/edit/<%= cliente._id %> "
+        method="POST"
+        class="my-5"
+      >
+        <% if(cliente.cpf) { %>
 
-        <% } else { %> 
+        <div class="form-group my-3">
+          <label for="inputAddress">Nome:</label>
+          <input
+            value="<%= cliente.nome %>"
+            type="text"
+            class="form-control"
+            name="nome"
+          />
+        </div>
 
-          <form action="/cliente/register" method="POST" class="my-5">
-        <% } %> 
+        <div class="form-group my-3">
+          <label for="inputAddress2">CPF</label>
+          <input
+            value="<%= cliente.cpf %>"
+            type="text"
+            class="form-control"
+            name="cpf"
+            data-mask-for-cpf
+          />
+        </div>
+        <div class="form-group my-3">
+          <label for="inputAddress2">Telefone:</label>
+          <input
+            value="<%= cliente.telefone %>"
+            type="text"
+            class="form-control"
+            name="telefone"
+          />
+        </div>
+        <div class="form-group my-3">
+          <label for="inputAddress2">Endereço:</label>
+          <input
+            value="<%= cliente.endereco %>"
+            type="text"
+            class="form-control"
+            name="endereco"
+          />
+        </div>
 
+        <% } else { %>
 
-        <% if(cliente.cpf) { %> 
-  
+        <div class="form-row">
           <div class="form-group my-3">
-            <label for="inputAddress">Nome:</label>
+            <label>CNPJ:</label>
             <input
-              value="<%= cliente.nome %>"
               type="text"
-              class="form-control"
-              name="nome"
-            />
-          </div>
-
-          <div class="form-group my-3">
-            <label for="inputAddress2">CPF</label>
-            <input
               value="<%= cliente.cnpj %>"
-              type="text"
               class="form-control"
-              name="cpf"
-              data-mask-for-cpf
+              name="cnpj"
+              data-mask-for-cnpj
             />
           </div>
-          <div class="form-group my-3">
-            <label for="inputAddress2">Telefone:</label>
+          <div class="form-group">
+            <label for="inputEmail4">Nome Fantasia:</label>
             <input
-              value="<%= cliente.telefone %>"
+              value="<%= cliente.nomeFantasia %>"
               type="text"
               class="form-control"
-              name="telefone"
+              name="nomeFantasia"
             />
           </div>
-          <div class="form-group my-3">
-            <label for="inputAddress2">Endereço:</label>
-            <input
-              value="<%= cliente.endereco %>"
-              type="text"
-              class="form-control"
-              name="endereco"
-            />
-          </div>
-
-
-          <% } else { %> 
-
-
-            <div class="form-row">
-              <div class="form-group my-3">
-                <label>CNPJ:</label>
-                <input
-                  type="text"
-                  value="<%= cliente.cnpj %>"
-                  class="form-control"
-                  name="cnpj"
-                  data-mask-for-cnpj
-                />
-              </div>
-              <div class="form-group">
-                <label for="inputEmail4">Nome Fantasia:</label>
-                <input value="<%= cliente.nomeFantasia %>" type="text" class="form-control" name="nomeFantasia" />
-              </div>
-            </div>
-            <div class="form-group my-3">
-              <label for="inputAddress">Razão Social</label>
-              <input value="<%= cliente.razaoSocial %>" type="text" class="form-control" name="razaoSocial" />
-            </div>
-            <div class="form-group my-3">
-              <label for="inputAddress">Email</label>
-              <input value="<%= cliente.email %>" type="email" class="form-control" name="email" />
-            </div>
-            <div class="form-group my-3">
-              <label for="inputAddress">Telefone</label>
-              <input
-                type="tel"
-                class="form-control"
-                name="telefone"
-                value="<%= cliente.telefone %>"
-                data-mask-for-telefone
-              />
-            </div>
-            <div class="form-group my-3">
-              <label for="inputAddress2">Endereço</label>
-              <input value="<%= cliente.endereco %>" type="text" class="form-control" name="endereco" />
-            </div>
-          <% } %> 
-
-
-
-        
-        
+        </div>
+        <div class="form-group my-3">
+          <label for="inputAddress">Razão Social</label>
+          <input
+            value="<%= cliente.razaoSocial %>"
+            type="text"
+            class="form-control"
+            name="razaoSocial"
+          />
+        </div>
+        <div class="form-group my-3">
+          <label for="inputAddress">Email</label>
+          <input
+            value="<%= cliente.email %>"
+            type="email"
+            class="form-control"
+            name="email"
+          />
+        </div>
+        <div class="form-group my-3">
+          <label for="inputAddress">Telefone</label>
+          <input
+            type="tel"
+            class="form-control"
+            name="telefone"
+            value="<%= cliente.telefone %>"
+            data-mask-for-telefone
+          />
+        </div>
+        <div class="form-group my-3">
+          <label for="inputAddress2">Endereço</label>
+          <input
+            value="<%= cliente.endereco %>"
+            type="text"
+            class="form-control"
+            name="endereco"
+          />
+        </div>
+        <% } %>
 
         <button type="submit" class="btn btn-primary my-3">Salvar</button>
       </form>
