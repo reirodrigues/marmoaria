@@ -1,298 +1,298 @@
-<%- include('../includes/head')%> <%- include('../includes/nav')%>
-<div class="container" id="container">
-  <div class="row">
-    <div class="col-lg-2"></div>
+<%- include('../includes/head')%>
+  <%- include('../includes/nav')%>
+    <div class="container" id="container">
+      <div class="row">
+        <div class="col-lg-2"></div>
 
-    <div class="col-lg-8 my-5">
-      <h1 class="text-center">Cadastrar novo cliente</h1>
-      <p class="text-center">Insira os dados desejados e clique em 'Salvar'</p>
+        <div class="col-lg-8 my-5">
+          <h1 class="text-center">Cadastrar novo cliente</h1>
+          <p class="text-center">Insira os dados desejados e clique em 'Salvar'</p>
 
-      <%- include('../includes/messages')%>
+          <%- include('../includes/messages')%>
 
-      <ul class="nav nav-tabs" role="tablist">
-        <li class="nav-item" role="presentation">
-          <a
-            href="#tabPF"
-            class="nav-link active"
-            id="linkPF"
-            data-bs-toggle="tab"
-            role="tab"
-            aria-controls="tabPF"
-            >Cadastro Pessoa Física</a
-          >
-        </li>
-        <li class="nav-item" role="presentation">
-          <a
-            href="#tabPJ"
-            class="nav-link"
-            id="linkPJ"
-            data-bs-toggle="tab"
-            role="tab"
-            aria-controls="tabPJ"
-            >Cadastro Pessoa Jurídica</a
-          >
-        </li>
-      </ul>
+            <ul class="nav nav-tabs" role="tablist" onclick="resetAdressForm()">
+              <li class="nav-item" role="presentation">
+                <a id="tab_cpf" href="#tabPF" class="nav-link active" id="linkPF" data-bs-toggle="tab" role="tab"
+                  aria-controls="tabPF">Cadastro Pessoa Física</a>
+              </li>
+              <li class="nav-item" role="presentation" onclick="resetAdressForm()">
+                <a id="tab_cnpj" href="#tabPJ" class="nav-link" id="linkPJ" data-bs-toggle="tab" role="tab"
+                  aria-controls="tabPJ">Cadastro Pessoa Jurídica</a>
+              </li>
+            </ul>
 
-      <div class="tab-content" id="meusConteudos">
-        <div
-          class="tab-pane fade show active"
-          id="tabPF"
-          role="tabpanel"
-          aria-labelledby="linkPF"
-        >
-          <form action="/cliente/register" method="POST" class="my-5">
-            <div class="form-row">
-              <div class="form-group my-3">
-                <label>CPF:</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="cpf"
-                  data-mask-for-cpf
-                />
+            <div class="tab-content" id="meusConteudos">
+              <div class="tab-pane fade show active" id="tabPF" role="tabpanel" aria-labelledby="linkPF">
+                <form action="/cliente/register" method="POST" class="my-5">
+                  <div class="form-row">
+                    <div class="form-group my-3">
+                      <label>CPF:</label>
+                      <input type="text" class="form-control" name="cpf" data-mask-for-cpf />
+                    </div>
+                    <div class="form-group">
+                      <label>Nome:</label>
+                      <input type="text" class="form-control" name="nome" />
+                    </div>
+                  </div>
+                  <div class="form-group my-3">
+                    <label>Telefone</label>
+                    <input type="tel" class="form-control" name="telefone" data-mask-for-telefone />
+                  </div>
+                  <div class="form-group my-3">
+                    <label>Email</label>
+                    <input type="email" class="form-control" name="email" />
+                  </div>
+
+                  <div class="form-group my-3" id="enderecos_salvos_cpf"></div>
+
+                  <div class="form-group my-3" id="div_enderecos"></div>
+
+                  <div class="form-group my-3" id="form_adress_cpf">
+                    <button type="button" class="btn btn-primary my-3" onclick="add_adress()">
+                      Adicionar Endereço
+                    </button>
+                  </div>
+
+                  <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary my-3">Salvar</button>
+                    <a class="btn btn-primary my-3" href="/cliente/home" role="button">Voltar</a>
+                  </div>
+                </form>
               </div>
-              <div class="form-group">
-                <label>Nome:</label>
-                <input type="text" class="form-control" name="nome" />
+            </div>
+            <div class="tab-content" id="meusConteudos">
+              <div class="tab-pane fade" id="tabPJ" role="tabpanel" aria-labelledby="linkPJ">
+                <form action="/cliente/register" method="POST" class="my-5">
+                  <div class="form-row">
+                    <div class="form-group my-3">
+                      <label>CNPJ:</label>
+                      <input type="text" class="form-control" name="cnpj" data-mask-for-cnpj />
+                    </div>
+                    <div class="form-group">
+                      <label>Nome Fantasia:</label>
+                      <input type="text" class="form-control" name="nomeFantasia" />
+                    </div>
+                  </div>
+                  <div class="form-group my-3">
+                    <label>Razão Social</label>
+                    <input type="text" class="form-control" name="razaoSocial" />
+                  </div>
+                  <div class="form-group my-3">
+                    <label>Email</label>
+                    <input type="email" class="form-control" name="email" />
+                  </div>
+                  <div class="form-group my-3">
+                    <label>Telefone</label>
+                    <input type="tel" class="form-control" name="telefone" data-mask-for-telefone />
+                  </div>
+                  <div class="form-group my-3" id="form_adress_cnpj">
+                    <label>Endereço</label>
+                    <input type="text" class="form-control" name="endereco" />
+                  </div>
+
+                  <div class="form-group my-3" id="enderecos_salvos_cnpj"></div>
+
+                  <div class="form-group my-3" id="div_enderecosPJ"></div>
+
+                  <div class="form-group my-3" id="form_adress_cpf">
+                    <button type="button" class="btn btn-primary my-3" onclick="add_adress()">
+                      Adicionar Endereço
+                    </button>
+                  </div>
+
+                  <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary my-3">Salvar</button>
+                    <a class="btn btn-primary my-3" href="/cliente/home" role="button">Voltar</a>
+                  </div>
+                </form>
               </div>
             </div>
-            <div class="form-group my-3">
-              <label>Telefone</label>
-              <input
-                type="tel"
-                class="form-control"
-                name="telefone"
-                data-mask-for-telefone
-              />
+        </div>
+      </div>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"
+        integrity="sha512-odNmoc1XJy5x1TMVMdC7EMs3IVdItLPlCeL5vSUPN2llYKMJ2eByTTAIiiuqLg+GdNr9hF6z81p27DArRFKT7A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script>
+        let index = 0;
+        let adress = [];
+
+        function add_adress() {
+          if (!document.getElementById(`adress_${index}`)) {
+            const form = `   
+            <div class="mt-4" style="display: flex;justify-content: center;align-items: center;">
+              <h3>Endereço</h3>
             </div>
-            <div class="form-group my-3">
-              <label>Email</label>
-              <input type="email" class="form-control" name="email" />
+          <div id="loading" class="d-none" style="display: flex;justify-content: center;align-items: center;">
+            <button class="btn btn-primary" type="button" disabled>
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              <span>Loading...</span>
+            </button>
+          </div>
+        <div class="container border" id="adress_${index}">
+          <form class="pt-5">
+            <div class="form-outline mb-4">
+              <label class="form-label pt-2">CEP:</label>
+              <input required type="text" class="form-control" id="cep_${index}" onblur="buscaCEP()" />
             </div>
 
-            <div class="form-group my-3" id="div_enderecos"></div>
-
-            <div class="form-group my-3" id="form_adress_cpf">
-              <button
-                type="button"
-                class="btn btn-primary my-3"
-                onclick="add_adress()"
-              >
-                Adicionar Endereço
-              </button>
+            <div class="form-outline mb-4">
+              <label class="form-label">Rua:</label>
+              <input required type="text" class="form-control" id="rua_${index}" />
             </div>
 
-            <div class="d-flex justify-content-between">
-              <button type="submit" class="btn btn-primary my-3">Salvar</button>
-              <a class="btn btn-primary my-3" href="/cliente/home" role="button"
-                >Voltar</a
-              >
+            <div class="form-outline mb-4">
+              <label class="form-label">Numero:</label>
+              <input required type="number" class="form-control" id="numero_${index}" />
             </div>
+
+            <div class="form-outline mb-4">
+              <label class="form-label">Complemento:</label>
+              <input type="text" class="form-control" id="complemento_${index}" />
+            </div>
+
+            <div class="form-outline mb-4">
+              <label class="form-label">Bairro:</label>
+              <input required type="text" class="form-control" id="bairro_${index}" />
+            </div>
+
+            <div class="row mb-4">
+              <div class="col">
+                <div class="form-outline">
+                  <label class="form-label" for="form6Example1">Cidade:</label>
+                  <input required type="text" class="form-control" id="cidade_${index}" />
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-outline">
+                  <label class="form-label">Estado:</label>
+                  <input required type="text" class="form-control" id="estado_${index}" />
+                </div>
+              </div>
+            </div>
+
+            <button type="button" onclick="salvarEndereco()" class="btn btn-primary btn-block mb-4">
+              Salvar
+            </button>
           </form>
-        </div>
-      </div>
-      <div class="tab-content" id="meusConteudos">
-        <div
-          class="tab-pane fade"
-          id="tabPJ"
-          role="tabpanel"
-          aria-labelledby="linkPJ"
-        >
-          <form action="/cliente/register" method="POST" class="my-5">
-            <div class="form-row">
-              <div class="form-group my-3">
-                <label>CNPJ:</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="cnpj"
-                  data-mask-for-cnpj
-                />
+        </div>`;
+
+            if (tabCpfIsActive()) {
+              document.getElementById("div_enderecos").innerHTML += form;
+            } else {
+              document.getElementById("div_enderecosPJ").innerHTML += form;
+            }
+          }
+        }
+
+        function salvarEndereco() {
+          const cep = document.getElementById(`cep_${index}`).value;
+          const rua = document.getElementById(`rua_${index}`).value;
+          const numero = document.getElementById(`numero_${index}`).value;
+          const complemento = document.getElementById(`complemento_${index}`).value;
+          const bairro = document.getElementById(`bairro_${index}`).value;
+          const cidade = document.getElementById(`cidade_${index}`).value;
+          const estado = document.getElementById(`estado_${index}`).value;
+
+          adress.push({
+            index,
+            cep,
+            rua,
+            numero,
+            complemento,
+            bairro,
+            cidade,
+            estado,
+          });
+          console.log(adress);
+          index++;
+
+          let card = `
+          <div class="card text-center mt-3" id="endereco_cadastrado_${index}">            
+            <div class="card-header">
+              <div class="text-center" style="display: contents;">
+                Endereço ${index}
               </div>
-              <div class="form-group">
-                <label>Nome Fantasia:</label>
-                <input type="text" class="form-control" name="nomeFantasia" />
+              <div class="text-right float-end">
+                <button type="button" class="btn btn-close" onclick="removerEndereco(${index})" ></button>
               </div>
             </div>
-            <div class="form-group my-3">
-              <label>Razão Social</label>
-              <input type="text" class="form-control" name="razaoSocial" />
+            <div class="card-body">
+              <p class="card-text  text-start">${cep}, ${bairro}</p>
+              <p class="card-text  text-start">${rua}, ${numero}</p>
+              <p class="card-text  text-start">${complemento}</p>
+              <p class="card-text  text-start">${cidade} -  ${estado}</p>
             </div>
-            <div class="form-group my-3">
-              <label>Email</label>
-              <input type="email" class="form-control" name="email" />
-            </div>
-            <div class="form-group my-3">
-              <label>Telefone</label>
-              <input
-                type="tel"
-                class="form-control"
-                name="telefone"
-                data-mask-for-telefone
-              />
-            </div>
-            <div class="form-group my-3" id="form_adress_cnpj">
-              <label>Endereço</label>
-              <input type="text" class="form-control" name="endereco" />
-            </div>
+          </div>
+          `
 
-            <div class="form-group my-3" id="div_enderecosPJ"></div>
+          if (tabCpfIsActive()) {
+            document.getElementById('enderecos_salvos_cpf').innerHTML += card;
+          } else {
+            document.getElementById('enderecos_salvos_cnpj').innerHTML += card;
+          }
 
-            <div class="form-group my-3" id="form_adress_cpf">
-              <button
-                type="button"
-                class="btn btn-primary my-3"
-                onclick="add_adress()"
-              >
-                Adicionar Endereço
-              </button>
-            </div>
+          document.getElementById("div_enderecos").innerHTML = '';
+          document.getElementById("div_enderecosPJ").innerHTML = '';
+        }
 
-            <div class="d-flex justify-content-between">
-              <button type="submit" class="btn btn-primary my-3">Salvar</button>
-              <a class="btn btn-primary my-3" href="/cliente/home" role="button"
-                >Voltar</a
-              >
-            </div>
-          </form>
-        </div>
-      </div>
+        function removerEndereco(index_para_remover) {
+          
+        }
+
+        async function buscaCEP() {
+          const cepInput = document.getElementById(`cep_${index}`).value.trim();
+
+          if (cepInput.replace('-', '').length != 8) {
+            return;
+          }
+
+          document.getElementById(`adress_${index}`).classList.add("d-none");
+          document.getElementById(`loading`).classList.remove("d-none");
+          let error = false;
+
+          const cepData = await axios
+            .post(`cliente/buscaCEP`, {
+              cep: cepInput,
+            })
+            .then((res) => {
+              return res.data;
+            })
+            .catch((err) => {
+              console.log(err.response);
+              error = true;
+              alert("Verifique o CEP digitado!");
+            })
+            .finally((res) => {
+              document.getElementById(`adress_${index}`).classList.remove("d-none");
+              document.getElementById(`loading`).classList.add("d-none");
+            });
+
+          if (error) return;
+
+          document.getElementById(`rua_${index}`).value = cepData.logradouro;
+          document.getElementById(`bairro_${index}`).value = cepData.bairro;
+          document.getElementById(`complemento_${index}`).value =
+            cepData.complemento;
+          document.getElementById(`cidade_${index}`).value = cepData.localidade;
+          document.getElementById(`estado_${index}`).value = cepData.uf;
+        }
+
+        function tabCpfIsActive() {
+          const a_cpf = document.getElementById('tab_cpf');
+          return a_cpf.classList.contains('active');
+        }
+
+        function resetAdressForm() {
+          document.getElementById("div_enderecos").innerHTML = '';
+          document.getElementById("div_enderecosPJ").innerHTML = '';
+          document.getElementById('enderecos_salvos_cpf').innerHTML = '';
+          document.getElementById('enderecos_salvos_cnpj').innerHTML = '';
+          adress = [];
+          index = 0;
+        }
+
+      </script>
+
+      <%- include('../includes/footer')%>
     </div>
-  </div>
-
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"
-    integrity="sha512-odNmoc1XJy5x1TMVMdC7EMs3IVdItLPlCeL5vSUPN2llYKMJ2eByTTAIiiuqLg+GdNr9hF6z81p27DArRFKT7A=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  ></script>
-  <script>
-    let index = 0;
-    let adress = [];
-
-    function add_adress() {
-      if (!document.getElementById(`adress_${index}`)) {
-        const form = `   
-    <div class="mt-4" style="display: flex;justify-content: center;align-items: center;">
-      <h3>Endereço</h3>
-    </div>
-  <div id="loading" class="d-none" style="display: flex;justify-content: center;align-items: center;">
-    <button class="btn btn-primary" type="button" disabled>
-      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-      <span>Loading...</span>
-    </button>
-  </div>
-<div class="container border" id="adress_${index}">
-  <form class="pt-5">
-    <div class="form-outline mb-4">
-      <label class="form-label pt-2">CEP:</label>
-      <input required type="text" class="form-control" id="cep_${index}" onblur="buscaCEP()" />
-    </div>
-
-    <div class="form-outline mb-4">
-      <label class="form-label">Rua:</label>
-      <input required type="text" class="form-control" id="rua_${index}" />
-    </div>
-
-    <div class="form-outline mb-4">
-      <label class="form-label">Numero:</label>
-      <input required type="number" class="form-control" id="numero_${index}" />
-    </div>
-
-    <div class="form-outline mb-4">
-      <label class="form-label">Complemento:</label>
-      <input type="text" class="form-control" id="complemento_${index}" />
-    </div>
-
-    <div class="form-outline mb-4">
-      <label class="form-label">Bairro:</label>
-      <input required type="text" class="form-control" id="bairro_${index}" />
-    </div>
-
-    <div class="row mb-4">
-      <div class="col">
-        <div class="form-outline">
-          <label class="form-label" for="form6Example1">Cidade:</label>
-          <input required type="text" class="form-control" id="cidade_${index}" />
-        </div>
-      </div>
-      <div class="col">
-        <div class="form-outline">
-          <label class="form-label">Estado:</label>
-          <input required type="text" class="form-control" id="estado_${index}" />
-        </div>
-      </div>
-    </div>
-
-    <button type="submit" class="btn btn-primary btn-block mb-4">
-      Salvar
-    </button>
-  </form>
-</div>
-    `;
-
-        document.getElementById("div_enderecos").innerHTML += form;
-        document.getElementById("div_enderecosPJ").innerHTML += form;
-      }
-    }
-
-    function salvar() {
-      const cep = document.getElementById("cep").value;
-      const rua = document.getElementById("rua").value;
-      const numero = document.getElementById("numero").value;
-      const complemento = document.getElementById("complemento").value;
-      const bairro = document.getElementById("bairro").value;
-      const cidade = document.getElementById("cidade").value;
-      const estado = document.getElementById("estado").value;
-
-      adress.push({
-        index,
-        cep,
-        rua,
-        numero,
-        complemento,
-        bairro,
-        cidade,
-        estado,
-      });
-      console.log(adress);
-      index++;
-    }
-
-    async function buscaCEP() {
-      const cepInput = document.getElementById(`cep_${index}`).value;
-      document.getElementById(`adress_${index}`).classList.add("d-none");
-      document.getElementById(`loading`).classList.remove("d-none");
-      let error = false;
-
-      const cepData = await axios
-        .post(`cliente/buscaCEP`, {
-          cep: cepInput,
-        })
-        .then((res) => {
-          return res.data;
-        })
-        .catch((err) => {
-          console.log(err.response);
-          error = true;
-          alert("Verifique o CEP digitado!");
-        })
-        .finally((res) => {
-          document.getElementById(`adress_${index}`).classList.remove("d-none");
-          document.getElementById(`loading`).classList.add("d-none");
-        });
-
-      if (error) return;
-
-      document.getElementById(`rua_${index}`).value = cepData.logradouro;
-      document.getElementById(`bairro_${index}`).value = cepData.bairro;
-      document.getElementById(`complemento_${index}`).value =
-        cepData.complemento;
-      document.getElementById(`cidade_${index}`).value = cepData.localidade;
-      document.getElementById(`estado_${index}`).value = cepData.uf;
-    }
-  </script>
-
-  <%- include('../includes/footer')%>
-</div>

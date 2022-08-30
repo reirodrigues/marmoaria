@@ -9,6 +9,7 @@ exports.index = (req, res) => {
 exports.register = async (req, res) => {
   try {
     const cliente = new Cliente(req.body);
+
     await cliente.register();
 
     if (cliente.errors.length > 0) {
@@ -59,12 +60,15 @@ exports.edit = async (req, res) => {
 exports.buscaCEP = async (req, res) => {
   try {
     const axios = require("axios").default;
+    console.log(this.body);
+
     const data = await axios
       .get(`https://viacep.com.br/ws/${req.body.cep}/json/`)
       .then((res) => {
-        console.log(res.data);
+        //console.log(res.data);
         return res.data;
       });
+    
     return res.send(data);
   } catch (e) {
     console.log(e);
