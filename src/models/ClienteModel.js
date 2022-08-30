@@ -4,7 +4,7 @@ const ClienteSchema = new mongoose.Schema({
   cpf: { type: String },
   nome: { type: String },
   telefone: { type: String },
-  endereco: { type: String },
+  endereco: { type: Object },
   email: { type: String },
   cnpj: { type: String },
   nomeFantasia: { type: String },

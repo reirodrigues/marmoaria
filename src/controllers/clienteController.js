@@ -13,12 +13,12 @@ exports.register = async (req, res) => {
 
     if (cliente.errors.length > 0) {
       req.flash("errors", cliente.errors);
-      req.session.save(() => res.redirect("clientes/cliente"));
+      req.session.save(() => res.redirect("/cliente"));
       return;
     }
 
     req.flash("success", cliente.success);
-    req.session.save(() => res.redirect("clientes/cliente/home"));
+    req.session.save(() => res.redirect("/cliente/home"));
     return;
   } catch (e) {
     console.log(e);
@@ -44,12 +44,12 @@ exports.edit = async (req, res) => {
 
     if (cliente.errors.length > 0) {
       req.flash("errors", cliente.errors);
-      req.session.save(() => res.redirect(`clientes/cliente/${req.params.id}`));
+      req.session.save(() => res.redirect(`/cliente/${req.params.id}`));
       return;
     }
 
     req.flash("success", "Cliente Editado com sucesso");
-    req.session.save(() => res.redirect("clientes/cliente/home"));
+    req.session.save(() => res.redirect("/cliente/home"));
     return;
   } catch (e) {
     console.log(e);
@@ -58,12 +58,13 @@ exports.edit = async (req, res) => {
 };
 exports.buscaCEP = async (req, res) => {
   try {
-    const axios = require('axios').default;
-    const data = await axios.get(`https://viacep.com.br/ws/${req.body.cep}/json/`)
-      .then(res => {
+    const axios = require("axios").default;
+    const data = await axios
+      .get(`https://viacep.com.br/ws/${req.body.cep}/json/`)
+      .then((res) => {
         console.log(res.data);
         return res.data;
-      })
+      });
     return res.send(data);
   } catch (e) {
     console.log(e);
