@@ -24,6 +24,7 @@
     "express-session": "^1.17.1",
     "helmet": "^4.4.1",
     "jquery-mask-plugin": "^1.14.16",
+    "moment": "^2.29.4",
     "mongoose": "^5.12.1",
     "regenerator-runtime": "^0.13.7",
     "req-flash": "^0.0.3",

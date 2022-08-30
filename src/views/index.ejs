@@ -41,7 +41,8 @@
             <td><%= pedido.vencimentoOriginal %></td>
             <td><%= pedido.dataPagamento %></td>
             <td>
-              <% if (pedido.classificacao == 'true') { %>Entrada<% } else { %>Saida<% } %>
+              <% if (pedido.classificacao == 'true') { %>Entrada<% } else {
+              %>Saida<% } %>
             </td>
             <td>R$<%= pedido.valor %></td>
             <td><%= pedido.tipoConta %></td>
