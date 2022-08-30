@@ -1,4 +1,4 @@
-<%- include('includes/head')%> <%- include('includes/nav')%>
+<%- include('../includes/head')%> <%- include('../includes/nav')%>
 
 <div class="container">
   <div class="row">
@@ -10,7 +10,7 @@
         Substitua os campos desejados depois clique em 'Salvar'
       </p>
 
-      <%- include('includes/messages')%>
+      <%- include('../includes/messages')%>
 
       <form
         action="/cliente/edit/<%= cliente._id %> "
@@ -30,7 +30,7 @@
         </div>
 
         <div class="form-group my-3">
-          <label for="inputAddress2">CPF</label>
+          <label>CPF</label>
           <input
             value="<%= cliente.cpf %>"
             type="text"
@@ -40,7 +40,7 @@
           />
         </div>
         <div class="form-group my-3">
-          <label for="inputAddress2">Telefone:</label>
+          <label>Telefone:</label>
           <input
             value="<%= cliente.telefone %>"
             type="text"
@@ -49,7 +49,7 @@
           />
         </div>
         <div class="form-group my-3">
-          <label for="inputAddress2">Endereço:</label>
+          <label>Endereço:</label>
           <input
             value="<%= cliente.endereco %>"
             type="text"
@@ -110,7 +110,7 @@
           />
         </div>
         <div class="form-group my-3">
-          <label for="inputAddress2">Endereço</label>
+          <label>Endereço</label>
           <input
             value="<%= cliente.endereco %>"
             type="text"
@@ -125,5 +125,5 @@
     </div>
   </div>
 
-  <%- include('includes/footer')%>
+  <%- include('../includes/footer')%>
 </div>
