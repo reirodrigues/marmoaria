@@ -5,7 +5,7 @@ const Origem = require("../models/OrigemModel");
 
 exports.index = async (req, res) => {
   const pedidos = await Pedido.buscarPedidos();
-  res.render("formularioEndereco", { pedidos });
+  res.render("index", { pedidos });
 };
 
 exports.clienteIndex = async (req, res) => {

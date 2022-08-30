@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+var moment = require("moment");
 
 const PedidoSchema = new mongoose.Schema({
   vencimentoOriginal: { type: String, required: true },
@@ -40,6 +41,18 @@ Pedido.prototype.valida = function () {
   if (!this.body.cliente) this.errors.push("Cliente é obrigatório");
   if (!this.body.origem) this.errors.push("Origem é obrigatório");
   if (!this.body.status) this.errors.push("Status é obrigatório");
+
+  var dataPagamento = moment(this.body.dataPagamento);
+  var vencimentoOriginal = moment(this.body.vencimentoOriginal);
+
+  this.body.dataPagamento = dataPagamento
+    .format("DD-MM-YYYY")
+    .split("-")
+    .join("/");
+  this.body.vencimentoOriginal = vencimentoOriginal
+    .format("DD-MM-YYYY")
+    .split("-")
+    .join("/");
 
   if (this.body.classificacao.toUpperCase() == "ENTRADA") {
     this.body.classificacao = true;
