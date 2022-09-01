@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
+const Endereco = require("./EnderecoModel");
 
 const ClienteSchema = new mongoose.Schema({
   cpf: { type: String },
   nome: { type: String },
   telefone: { type: String },
-  endereco: { type: Object },
   email: { type: String },
   cnpj: { type: String },
   nomeFantasia: { type: String },
@@ -28,8 +28,9 @@ Cliente.prototype.register = async function () {
   await this.userExists();
 
   if (this.errors.length > 0) return;
+
   this.success.push("Cliente cadastrado com sucesso");
-  const cliente = await ClienteModel.create(this.body);
+  this.cliente = await ClienteModel.create(this.body.cliente);
 
   // this.body.enderecos.map(endereco => {
   //   endereco.id_cliente = cliente.id
@@ -37,24 +38,37 @@ Cliente.prototype.register = async function () {
   // })
 };
 
+Cliente.prototype.registerAdresses = async function () {
+  //this.validaAdress();
+  //if (this.errors.length > 0) return;
+
+  this.body.enderecos.forEach(async (DadosEndereco) => {
+    DadosEndereco.clienteId = this.cliente._id;
+    const endereco = new Endereco(DadosEndereco);
+    await endereco.register();
+  });
+
+  //await ClienteModel.deleteOne({id: this.cliente._id});
+};
+
 Cliente.prototype.userExists = async function () {
-  if (this.body.cnpj) {
-    const clientePJ = await ClienteModel.findOne({ cnpj: this.body.cnpj });
-    if (clientePJ) this.errors.push("Cliente PJ já existe no banco de dados");
-  }
+  // if (this.body.cliente.cnpj) {
+  //   const clientePJ = await ClienteModel.findOne({ cnpj: this.body.cliente.cnpj || '' });
+  //   if (clientePJ) this.errors.push("Cliente PJ já existe no banco de dados");
+  // }
+
   if (this.body.cpf) {
-    const clientePF = await ClienteModel.findOne({ cpf: this.body.cpf });
+    const clientePF = await ClienteModel.findOne({ cpf: this.body.cpf || '' });
     if (clientePF) this.errors.push("Cliente já existe no banco de dados");
   }
 };
 
 Cliente.prototype.valida = function () {
-  this.cleanUp();
+  //this.cleanUp();
 
-  // if (!this.body.nome) this.errors.push("Nome é um campo obrigatório");
-  // if (!this.body.cnpj) this.errors.push("CNPJ é um campo obrigatório");
-  // if (!this.body.telefone) this.errors.push("Telefone é um campo obrigatório");
-  // if (!this.body.endereco) this.errors.push("Endereço é um campo obrigatório");
+  if (!this.body.cliente.nome) this.errors.push("Nome é um campo obrigatório");
+  //if (!this.body.cnpj) this.errors.push("CNPJ é um campo obrigatório");
+  if (!this.body.cliente.telefone) this.errors.push("Telefone é um campo obrigatório");
 };
 
 Cliente.prototype.cleanUp = function () {

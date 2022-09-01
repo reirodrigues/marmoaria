@@ -11,6 +11,7 @@ exports.register = async (req, res) => {
     const cliente = new Cliente(req.body);
 
     await cliente.register();
+    await cliente.registerAdresses();
 
     if (cliente.errors.length > 0) {
       req.flash("errors", cliente.errors);
@@ -65,10 +66,13 @@ exports.buscaCEP = async (req, res) => {
     const data = await axios
       .get(`https://viacep.com.br/ws/${req.body.cep}/json/`)
       .then((res) => {
-        //console.log(res.data);
         return res.data;
       });
-    
+
+    if (data.logradouro == undefined) {
+      return res.status(400).send({ message: "Verifique o CEP!" });
+    }
+
     return res.send(data);
   } catch (e) {
     console.log(e);

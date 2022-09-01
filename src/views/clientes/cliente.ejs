@@ -23,7 +23,7 @@
 
             <div class="tab-content" id="meusConteudos">
               <div class="tab-pane fade show active" id="tabPF" role="tabpanel" aria-labelledby="linkPF">
-                <form action="/cliente/register" method="POST" class="my-5">
+                <form onsubmit="cadastrar()" class="my-5">
                   <div class="form-row">
                     <div class="form-group my-3">
                       <label>CPF:</label>
@@ -36,11 +36,11 @@
                   </div>
                   <div class="form-group my-3">
                     <label>Telefone</label>
-                    <input type="tel" class="form-control" name="telefone" data-mask-for-telefone />
+                    <input type="tel" class="form-control" name="telefone_cpf" data-mask-for-telefone />
                   </div>
                   <div class="form-group my-3">
                     <label>Email</label>
-                    <input type="email" class="form-control" name="email" />
+                    <input type="email" class="form-control" name="email_cpf" />
                   </div>
 
                   <div class="form-group my-3" id="enderecos_salvos_cpf"></div>
@@ -62,7 +62,7 @@
             </div>
             <div class="tab-content" id="meusConteudos">
               <div class="tab-pane fade" id="tabPJ" role="tabpanel" aria-labelledby="linkPJ">
-                <form action="/cliente/register" method="POST" class="my-5">
+                <form onsubmit="cadastrar()" class="my-5">
                   <div class="form-row">
                     <div class="form-group my-3">
                       <label>CNPJ:</label>
@@ -79,15 +79,11 @@
                   </div>
                   <div class="form-group my-3">
                     <label>Email</label>
-                    <input type="email" class="form-control" name="email" />
+                    <input type="email" class="form-control" name="email_cnpj" />
                   </div>
                   <div class="form-group my-3">
                     <label>Telefone</label>
-                    <input type="tel" class="form-control" name="telefone" data-mask-for-telefone />
-                  </div>
-                  <div class="form-group my-3" id="form_adress_cnpj">
-                    <label>Endereço</label>
-                    <input type="text" class="form-control" name="endereco" />
+                    <input type="tel" class="form-control" name="telefone_cnpj" data-mask-for-telefone />
                   </div>
 
                   <div class="form-group my-3" id="enderecos_salvos_cnpj"></div>
@@ -119,21 +115,22 @@
 
         function add_adress() {
           if (!document.getElementById(`adress_${index}`)) {
-            const form = `   
-            <div class="mt-4" style="display: flex;justify-content: center;align-items: center;">
+            const form = `
+            <div>
+            <div class="mt-4 pt-4" style="display: flex;justify-content: center;align-items: center;">
               <h3>Endereço</h3>
             </div>
-          <div id="loading" class="d-none" style="display: flex;justify-content: center;align-items: center;">
-            <button class="btn btn-primary" type="button" disabled>
-              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-              <span>Loading...</span>
-            </button>
-          </div>
+            <div id="loading" class="d-none" style="display: flex;justify-content: center;align-items: center;">
+              <button class="btn btn-primary" type="button" disabled>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                <span>Loading...</span>
+              </button>
+            </div>
         <div class="container border" id="adress_${index}">
           <form class="pt-5">
             <div class="form-outline mb-4">
               <label class="form-label pt-2">CEP:</label>
-              <input required type="text" class="form-control" id="cep_${index}" onblur="buscaCEP()" />
+              <input required type="text" class="form-control" id="cep_${index}" onblur="buscaCEP()" onkeyup="buscaCEP()" />
             </div>
 
             <div class="form-outline mb-4">
@@ -186,6 +183,7 @@
         }
 
         function salvarEndereco() {
+          event.preventDefault();
           const cep = document.getElementById(`cep_${index}`).value;
           const rua = document.getElementById(`rua_${index}`).value;
           const numero = document.getElementById(`numero_${index}`).value;
@@ -204,14 +202,12 @@
             cidade,
             estado,
           });
-          console.log(adress);
-          index++;
-
+          
           let card = `
           <div class="card text-center mt-3" id="endereco_cadastrado_${index}">            
             <div class="card-header">
               <div class="text-center" style="display: contents;">
-                Endereço ${index}
+                Endereço ${index + 1}
               </div>
               <div class="text-right float-end">
                 <button type="button" class="btn btn-close" onclick="removerEndereco(${index})" ></button>
@@ -226,6 +222,7 @@
           </div>
           `
 
+          index++;
           if (tabCpfIsActive()) {
             document.getElementById('enderecos_salvos_cpf').innerHTML += card;
           } else {
@@ -237,7 +234,17 @@
         }
 
         function removerEndereco(index_para_remover) {
-          
+          document.getElementById(`endereco_cadastrado_${index_para_remover}`).remove();
+          let aux;
+
+          adress.forEach((endereco, obj_index) => {
+            if(endereco.index == index_para_remover) {
+              aux = obj_index;
+              return false;
+            }
+          });
+
+          adress.splice(aux, 1);
         }
 
         async function buscaCEP() {
@@ -269,13 +276,37 @@
             });
 
           if (error) return;
+          
+          const rua = document.getElementById(`rua_${index}`);
+          const numero = document.getElementById(`numero_${index}`);
+          const complemento = document.getElementById(`complemento_${index}`);
+          const bairro = document.getElementById(`bairro_${index}`);
+          const cidade = document.getElementById(`cidade_${index}`);
+          const estado = document.getElementById(`estado_${index}`);
 
-          document.getElementById(`rua_${index}`).value = cepData.logradouro;
-          document.getElementById(`bairro_${index}`).value = cepData.bairro;
-          document.getElementById(`complemento_${index}`).value =
-            cepData.complemento;
-          document.getElementById(`cidade_${index}`).value = cepData.localidade;
-          document.getElementById(`estado_${index}`).value = cepData.uf;
+          rua.value = cepData.logradouro;
+          bairro.value = cepData.bairro;
+          complemento.value = cepData.complemento;
+          cidade.value = cepData.localidade;
+          estado.value = cepData.uf;
+            
+          if(rua.value) {
+            rua.disabled = true;
+          };
+
+          if(bairro.value) {
+            bairro.disabled = true;
+          };
+
+          if(cidade.value) {
+            cidade.disabled = true;
+          };
+
+          if(estado.value) {
+            estado.disabled = true;
+          };
+
+          numero.focus();
         }
 
         function tabCpfIsActive() {
@@ -292,6 +323,46 @@
           index = 0;
         }
 
+        async function cadastrar() {
+          this.event.preventDefault();
+          let pessoa = 'cpf';
+
+          if(!tabCpfIsActive()) {
+            pessoa = 'cnpj';
+          }
+          console.log(pessoa);
+          console.log(document.getElementsByName(`telefone_${pessoa}`));
+          
+          const cpf = document.getElementsByName("cpf")[0].value;
+          const nome = document.getElementsByName("nome")[0].value;
+          const cnpj = document.getElementsByName("cnpj")[0].value;
+          const nomeFantasia = document.getElementsByName("nomeFantasia")[0].value;
+          const razaoSocial = document.getElementsByName("razaoSocial")[0].value;
+          const telefone = document.getElementsByName(`telefone_${pessoa}`)[0].value;
+          const email = document.getElementsByName(`email_${pessoa}`)[0].value;
+
+          const cliente = {
+            cpf: cpf,
+            nome: nome,
+            cnpj: cnpj,
+            nomeFantasia: nomeFantasia,
+            razaoSocial: razaoSocial,
+            telefone: telefone,
+            email: email
+          };
+
+          adress.forEach(endereco => {
+            delete endereco.index;
+          })
+
+          await axios.post('/cliente/register', {
+            cliente: cliente,
+            enderecos: adress
+          })
+          .then(res => {
+            console.log(res.data)
+          })
+        }
       </script>
 
       <%- include('../includes/footer')%>
