@@ -36,7 +36,7 @@ Endereco.prototype.valida = function () {
   if (!this.body.rua) this.errors.push("Rua é um campo obrigatório");
   if (!this.body.numero) this.errors.push("Numero é um campo obrigatório");
   if (!this.body.cidade) this.errors.push("Cidade é um campo obrigatório");
-  if (!this.body.Estado) this.errors.push("Estado é um campo obrigatório");
+  if (!this.body.estado) this.errors.push("Estado é um campo obrigatório");
 };
 
 Endereco.prototype.cleanUp = function () {

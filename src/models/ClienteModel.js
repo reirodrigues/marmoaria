@@ -45,6 +45,7 @@ Cliente.prototype.registerAdresses = async function () {
   this.body.enderecos.forEach(async (DadosEndereco) => {
     DadosEndereco.clienteId = this.cliente._id;
     const endereco = new Endereco(DadosEndereco);
+    console.log(DadosEndereco);
     await endereco.register();
   });
 
