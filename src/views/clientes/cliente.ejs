@@ -190,7 +190,7 @@
           <form class="pt-5">
             <p class="msg my-5"></p>
             <div class="form-outline mb-4">
-              <label class="form-label pt-2">CEP: *</label>
+              <label class="form-label pt-2"><span >CEP: *</span></label>
               <input required type="text" class="form-control" id="cep_${index}" onblur="buscaCEP()" onkeyup="buscaCEP()" />
             </div>
 
@@ -254,20 +254,38 @@
       const cidade = document.getElementById(`cidade_${index}`).value;
       const estado = document.getElementById(`estado_${index}`).value;
 
-      const submitButton = document.querySelector("#submit-button");
-      event.preventDefault();
-
       const errorMsg = document.querySelector(".msg");
 
       if (
         cep === "" ||
         rua === "" ||
         numero === "" ||
+        bairro === "" ||
         cidade === "" ||
         estado === ""
       ) {
         errorMsg.textContent = "Preencha os campos obrigatorios *";
-        errorMsg.classList = "text-danger";
+        errorMsg.classList = "text-danger mt-4";
+
+        if (cep === "")
+          document.getElementById(`cep_${index}`).classList =
+            "form-control border border-danger";
+        if (rua === "")
+          document.getElementById(`rua_${index}`).classList =
+            "form-control border border-danger";
+        if (numero === "")
+          document.getElementById(`numero_${index}`).classList =
+            "form-control border border-danger";
+        if (bairro === "")
+          document.getElementById(`bairro_${index}`).classList =
+            "form-control border border-danger";
+        if (cidade === "")
+          document.getElementById(`cidade_${index}`).classList =
+            "form-control border border-danger";
+        if (estado === "")
+          document.getElementById(`estado_${index}`).classList =
+            "form-control border border-danger";
+
         return;
       }
 
@@ -283,9 +301,9 @@
       });
 
       let card = `
-          <div class="card text-center mt-3" id="endereco_cadastrado_${index}">
+          <div class="card text-bg-secondary mt-3" id="endereco_cadastrado_${index}">
             <div class="card-header">
-              <div class="text-center" style="display: contents;">
+              <div class="text-center text-dark" style="display: contents;">
                 Endereço ${index + 1}
               </div>
               <div class="text-right float-end">
@@ -293,10 +311,10 @@
               </div>
             </div>
             <div class="card-body">
-              <p class="card-text  text-start">${cep}, ${bairro}</p>
-              <p class="card-text  text-start">${rua}, ${numero}</p>
-              <p class="card-text  text-start">${complemento}</p>
-              <p class="card-text  text-start">${cidade} -  ${estado}</p>
+              <p class="card-text  text-start text-dark">${cep}, ${bairro}</p>
+              <p class="card-text  text-start text-dark">${rua}, ${numero}</p>
+              <p class="card-text  text-start text-dark">${complemento}</p>
+              <p class="card-text  text-start text-dark">${cidade} -  ${estado}</p>
             </div>
           </div>
           `;
