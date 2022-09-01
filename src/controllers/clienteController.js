@@ -23,7 +23,7 @@ exports.register = async (req, res) => {
     console.log("chegou no primeiro");
     req.session.save(() => res.redirect("/cliente/home"));
     console.log("chegou no segundo");
-    return;
+    // return;
   } catch (e) {
     console.log(e);
     return res.render("404");
