@@ -449,7 +449,7 @@
     }
 
     async function cadastrar() {
-      // this.event.preventDefault(); // -------------------------------------------- prevent default comentado
+      this.event.preventDefault(); // -------------------------------------------- prevent default comentado
       let pessoa = "cpf";
 
       if (!tabCpfIsActive()) {
@@ -485,7 +485,11 @@
           enderecos: adress,
         })
         .then((res) => {
-          console.log(res.data);
+          console.log(res);
+          window.location.href = res.data.route;
+        })
+        .catch((err) => {
+          location.reload();
         });
     }
   </script>

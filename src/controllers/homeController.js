@@ -11,7 +11,7 @@ exports.index = async (req, res) => {
 exports.clienteIndex = async (req, res) => {
   const clientesPF = await Cliente.buscarClientesPF();
   const clientesPJ = await Cliente.buscarClientesPJ();
-  res.render("clienteIndex", { clientesPF, clientesPJ });
+  res.render("clientes/clienteIndex", { clientesPF, clientesPJ });
 };
 
 exports.contaIndex = async (req, res) => {

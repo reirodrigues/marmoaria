@@ -29,8 +29,11 @@ Cliente.prototype.register = async function () {
 
   if (this.errors.length > 0) return;
 
+
+  console.log(this.body.cliente);
   this.success.push("Cliente cadastrado com sucesso");
   this.cliente = await ClienteModel.create(this.body.cliente);
+  console.log(this.cliente);
 
   // this.body.enderecos.map(endereco => {
   //   endereco.id_cliente = cliente.id
@@ -45,7 +48,6 @@ Cliente.prototype.registerAdresses = async function () {
   this.body.enderecos.forEach(async (DadosEndereco) => {
     DadosEndereco.clienteId = this.cliente._id;
     const endereco = new Endereco(DadosEndereco);
-    console.log(DadosEndereco);
     await endereco.register();
   });
 
@@ -65,7 +67,6 @@ Cliente.prototype.userExists = async function () {
       cpf: this.body.cliente.cpf || "",
     });
     if (clientePF) this.errors.push("Cliente já existe no banco de dados");
-    console.log(clientePF);
   }
 };
 

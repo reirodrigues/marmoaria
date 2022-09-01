@@ -6,27 +6,26 @@ exports.index = (req, res) => {
   });
 };
 
-exports.register = async (req, res) => {
+exports.register = async (req, response) => {
   try {
     const cliente = new Cliente(req.body);
 
     await cliente.register();
-    await cliente.registerAdresses();
+    if (cliente.errors.length == 0) { 
+      await cliente.registerAdresses();
+    }
 
     if (cliente.errors.length > 0) {
       req.flash("errors", cliente.errors);
-      req.session.save(() => res.redirect("/cliente"));
-      return;
+      return response.status(400).send({messages: cliente.errors});
     }
 
     req.flash("success", cliente.success);
-    console.log("chegou no primeiro");
-    req.session.save(() => res.redirect("/cliente/home"));
-    console.log("chegou no segundo");
+    return response.status(201).send({ route: "/cliente/home" });
     // return;
   } catch (e) {
     console.log(e);
-    return res.render("404");
+    return response.render("404");
   }
 };
 
@@ -60,10 +59,10 @@ exports.edit = async (req, res) => {
     res.render("404");
   }
 };
+
 exports.buscaCEP = async (req, res) => {
   try {
     const axios = require("axios").default;
-    console.log(this.body);
 
     const data = await axios
       .get(`https://viacep.com.br/ws/${req.body.cep}/json/`)
