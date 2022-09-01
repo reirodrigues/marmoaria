@@ -20,7 +20,9 @@ exports.register = async (req, res) => {
     }
 
     req.flash("success", cliente.success);
+    console.log("chegou no primeiro");
     req.session.save(() => res.redirect("/cliente/home"));
+    console.log("chegou no segundo");
     return;
   } catch (e) {
     console.log(e);
