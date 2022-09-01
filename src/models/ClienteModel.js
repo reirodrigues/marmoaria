@@ -52,23 +52,29 @@ Cliente.prototype.registerAdresses = async function () {
 };
 
 Cliente.prototype.userExists = async function () {
-  // if (this.body.cliente.cnpj) {
-  //   const clientePJ = await ClienteModel.findOne({ cnpj: this.body.cliente.cnpj || '' });
-  //   if (clientePJ) this.errors.push("Cliente PJ já existe no banco de dados");
-  // }
+  if (this.body.cliente.cnpj) {
+    const clientePJ = await ClienteModel.findOne({
+      cnpj: this.body.cliente.cnpj || "",
+    });
+    if (clientePJ) this.errors.push("Cliente PJ já existe no banco de dados");
+  }
 
-  if (this.body.cpf) {
-    const clientePF = await ClienteModel.findOne({ cpf: this.body.cpf || '' });
+  if (this.body.cliente.cpf) {
+    const clientePF = await ClienteModel.findOne({
+      cpf: this.body.cliente.cpf || "",
+    });
     if (clientePF) this.errors.push("Cliente já existe no banco de dados");
+    console.log(clientePF);
   }
 };
 
 Cliente.prototype.valida = function () {
   //this.cleanUp();
 
-  if (!this.body.cliente.nome) this.errors.push("Nome é um campo obrigatório");
+  // if (!this.body.cliente.nome) this.errors.push("Nome é um campo obrigatório");
   //if (!this.body.cnpj) this.errors.push("CNPJ é um campo obrigatório");
-  if (!this.body.cliente.telefone) this.errors.push("Telefone é um campo obrigatório");
+  if (!this.body.cliente.telefone)
+    this.errors.push("Telefone é um campo obrigatório");
 };
 
 Cliente.prototype.cleanUp = function () {

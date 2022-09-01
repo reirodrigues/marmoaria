@@ -8,7 +8,7 @@ const EnderecoSchema = new mongoose.Schema({
   cidade: { type: String },
   estado: { type: String },
   complemento: { type: String },
-  clienteId: { type:  mongoose.Schema.Types.ObjectId },
+  clienteId: { type: mongoose.Schema.Types.ObjectId },
   criadoEm: { type: Date, default: Date.now },
 });
 
@@ -32,9 +32,11 @@ Endereco.prototype.register = async function () {
 Endereco.prototype.valida = function () {
   //this.cleanUp();
 
-  // if (!this.body.cep) this.errors.push("Nome é um campo obrigatório");
-  // if (!this.body.cnpj) this.errors.push("CNPJ é um campo obrigatório");
-  // if (!this.body.endereco.telefone) this.errors.push("Telefone é um campo obrigatório");
+  if (!this.body.cep) this.errors.push("Cep é um campo obrigatório");
+  if (!this.body.rua) this.errors.push("Rua é um campo obrigatório");
+  if (!this.body.numero) this.errors.push("Numero é um campo obrigatório");
+  if (!this.body.cidade) this.errors.push("Cidade é um campo obrigatório");
+  if (!this.body.Estado) this.errors.push("Estado é um campo obrigatório");
 };
 
 Endereco.prototype.cleanUp = function () {
