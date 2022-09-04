@@ -12,7 +12,15 @@ exports.index = async (req, res) => {
 exports.clienteIndex = async (req, res) => {
   const clientesPF = await Cliente.buscarClientesPF();
   const clientesPJ = await Cliente.buscarClientesPJ();
-  res.render("clientes/clienteIndex", { clientesPF, clientesPJ });
+  const clientes = await Cliente.buscarClientes();
+  console.log(clientesPF);
+  const enderecos = await Endereco.buscarEnderecos();
+  res.render("clientes/clienteIndex", {
+    clientesPF,
+    clientesPJ,
+    enderecos,
+    clientes,
+  });
 };
 
 exports.contaIndex = async (req, res) => {
