@@ -41,7 +41,6 @@ exports.editIndex = async (req, res) => {
 
   const clientes = await Cliente.buscarClientes();
   const pedido = await Pedido.buscarPorId(req.params.id);
-  console.log(pedido);
   const contas = await Conta.buscarContas();
   const origens = await Origem.buscarOrigens();
 

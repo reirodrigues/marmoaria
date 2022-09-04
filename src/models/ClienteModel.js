@@ -10,6 +10,7 @@ const ClienteSchema = new mongoose.Schema({
   nomeFantasia: { type: String },
   razaoSocial: { type: String },
   criadoEm: { type: Date, default: Date.now },
+  enderecos: [{ type: mongoose.Schema.Types.ObjectId, ref: "Endereco" }]
 });
 
 const ClienteModel = mongoose.model("Cliente", ClienteSchema);
@@ -21,19 +22,16 @@ function Cliente(body) {
   this.cliente = null;
 }
 
-Cliente.prototype.register = async function () {
-  this.valida();
-  if (this.errors.length > 0) return;
+Cliente.prototype.registerCliente = async function () {
+  //this.valida();
+  //if (this.errors.length > 0) return;
 
   await this.userExists();
 
   if (this.errors.length > 0) return;
 
-
-  console.log(this.body.cliente);
   this.success.push("Cliente cadastrado com sucesso");
   this.cliente = await ClienteModel.create(this.body.cliente);
-  console.log(this.cliente);
 
   // this.body.enderecos.map(endereco => {
   //   endereco.id_cliente = cliente.id
@@ -45,24 +43,24 @@ Cliente.prototype.registerAdresses = async function () {
   //this.validaAdress();
   //if (this.errors.length > 0) return;
 
-  this.body.enderecos.forEach(async (DadosEndereco) => {
+  for (const DadosEndereco of this.body.enderecos) {
     DadosEndereco.clienteId = this.cliente._id;
     const endereco = new Endereco(DadosEndereco);
-    await endereco.register();
-  });
+    const enderecoCadastrado = await endereco.register();
+    this.cliente.enderecos.push(enderecoCadastrado);
+  }
 
-  //await ClienteModel.deleteOne({id: this.cliente._id});
+  await this.cliente.save();
 };
 
 Cliente.prototype.userExists = async function () {
-  if (this.body.cliente.cnpj) {
+  if (this.body.cliente.cnpj || false) {
     const clientePJ = await ClienteModel.findOne({
       cnpj: this.body.cliente.cnpj || "",
     });
     if (clientePJ) this.errors.push("Cliente PJ já existe no banco de dados");
   }
-
-  if (this.body.cliente.cpf) {
+  if (this.body.cliente.cpf || false) {
     const clientePF = await ClienteModel.findOne({
       cpf: this.body.cliente.cpf || "",
     });
@@ -75,8 +73,8 @@ Cliente.prototype.valida = function () {
 
   // if (!this.body.cliente.nome) this.errors.push("Nome é um campo obrigatório");
   //if (!this.body.cnpj) this.errors.push("CNPJ é um campo obrigatório");
-  if (!this.body.cliente.telefone)
-    this.errors.push("Telefone é um campo obrigatório");
+  // if (!this.body.cliente.telefone)
+  //   this.errors.push("Telefone é um campo obrigatório");
 };
 
 Cliente.prototype.cleanUp = function () {
@@ -110,14 +108,20 @@ Cliente.buscarClientes = async function () {
   });
   return cliente;
 };
+
 Cliente.buscarClientesPF = async function () {
-  const clientePF = await ClienteModel.find({ cpf: { $gt: 1 } }).sort({
-    criadoEm: -1,
-  });
+  const clientePF = await ClienteModel.find({ cpf: { $gt: 1 } }).
+    populate("enderecos").
+    sort({
+      criadoEm: -1,
+    })
   return clientePF;
 };
+
 Cliente.buscarClientesPJ = async function () {
-  const clientePJ = await ClienteModel.find({ cnpj: { $gt: 1 } }).sort({
+  const clientePJ = await ClienteModel.find({ cnpj: { $gt: 1 } }).
+  populate("enderecos").
+  sort({
     criadoEm: -1,
   });
   return clientePJ;

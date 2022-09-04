@@ -8,7 +8,7 @@ const EnderecoSchema = new mongoose.Schema({
   cidade: { type: String },
   estado: { type: String },
   complemento: { type: String },
-  clienteId: { type: mongoose.Schema.Types.ObjectId },
+  clienteId: { type: mongoose.Schema.Types.ObjectId, ref: "Cliente" },
   criadoEm: { type: Date, default: Date.now },
 });
 
@@ -27,6 +27,7 @@ Endereco.prototype.register = async function () {
 
   this.success.push("Endereco cadastrado com sucesso");
   this.endereco = await EnderecoModel.create(this.body);
+  return this.endereco;
 };
 
 Endereco.prototype.valida = function () {
@@ -67,9 +68,10 @@ Endereco.buscarPorId = async function (id) {
 Endereco.buscarEnderecos = async function () {
   const Endereco = await EnderecoModel.find().sort({
     criadoEm: -1,
-  });
+  }).populate('clienteId');
   return Endereco;
 };
+
 Endereco.buscarEnderecosPF = async function () {
   const EnderecoPF = await EnderecoModel.find({ cpf: { $gt: 1 } }).sort({
     criadoEm: -1,

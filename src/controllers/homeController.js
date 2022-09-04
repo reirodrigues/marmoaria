@@ -2,6 +2,7 @@ const Pedido = require("../models/PedidoModel");
 const Cliente = require("../models/ClienteModel");
 const Conta = require("../models/ContaModel");
 const Origem = require("../models/OrigemModel");
+const Endereco = require("../models/EnderecoModel");
 
 exports.index = async (req, res) => {
   const pedidos = await Pedido.buscarPedidos();

@@ -10,7 +10,7 @@ exports.register = async (req, response) => {
   try {
     const cliente = new Cliente(req.body);
 
-    await cliente.register();
+    await cliente.registerCliente();
     if (cliente.errors.length == 0) { 
       await cliente.registerAdresses();
     }

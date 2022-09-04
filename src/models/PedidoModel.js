@@ -77,7 +77,6 @@ Pedido.prototype.edit = async function (id) {
   if (typeof id !== "string") return;
   this.valida();
   if (this.errors.length > 0) return;
-  console.log(this.body);
   this.pedido = await PedidoModel.findByIdAndUpdate(id, this.body, {
     new: true,
   });
