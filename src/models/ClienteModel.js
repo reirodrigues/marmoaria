@@ -10,7 +10,7 @@ const ClienteSchema = new mongoose.Schema({
   nomeFantasia: { type: String },
   razaoSocial: { type: String },
   criadoEm: { type: Date, default: Date.now },
-  enderecos: [{ type: mongoose.Schema.Types.ObjectId, ref: "Endereco" }]
+  enderecos: [{ type: mongoose.Schema.Types.ObjectId, ref: "Endereco" }],
 });
 
 const ClienteModel = mongoose.model("Cliente", ClienteSchema);
@@ -70,7 +70,6 @@ Cliente.prototype.userExists = async function () {
 
 Cliente.prototype.valida = function () {
   //this.cleanUp();
-
   // if (!this.body.cliente.nome) this.errors.push("Nome é um campo obrigatório");
   //if (!this.body.cnpj) this.errors.push("CNPJ é um campo obrigatório");
   // if (!this.body.cliente.telefone)
@@ -110,18 +109,14 @@ Cliente.buscarClientes = async function () {
 };
 
 Cliente.buscarClientesPF = async function () {
-  const clientePF = await ClienteModel.find({ cpf: { $gt: 1 } }).
-    populate("enderecos").
-    sort({
-      criadoEm: -1,
-    })
+  const clientePF = await ClienteModel.find({ cnpj: "" }).sort({
+    criadoEm: -1,
+  });
   return clientePF;
 };
 
 Cliente.buscarClientesPJ = async function () {
-  const clientePJ = await ClienteModel.find({ cnpj: { $gt: 1 } }).
-  populate("enderecos").
-  sort({
+  const clientePJ = await ClienteModel.find({ cpf: "" }).sort({
     criadoEm: -1,
   });
   return clientePJ;
