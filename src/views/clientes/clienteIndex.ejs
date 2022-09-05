@@ -64,75 +64,50 @@
               </tr>
             </thead>
             <tbody>
-              <% clientesPF.forEach(clientePF => { %>
+              <% clientesPF.forEach(clientePF => {
+              %>
               <tr>
                 <td><%= clientePF.nome %></td>
                 <td><%= clientePF.cpf %></td>
                 <td><%= clientePF.telefone %></td>
                 <td>
-                  <a
-                    class="btn btn-primary"
-                    data-bs-toggle="collapse"
-                    href="#multiCollapsePF"
-                    role="button"
-                    aria-expanded="false"
-                    aria-controls="multiCollapsePF"
-                    onclick="mostraEndereco('<%=  JSON.stringify(clientePF) %>')"
-                    >Mostrar Endereços</a
-                  >
+                  
+                  <ul>
+                     <% for(var i=0; i<clientePF.enderecos.length; i++) {%>
+                       <p class="card-text text-start text-dark">
+                       <%= clientePF.enderecos[i].cep %>,
+                       <%= clientePF.enderecos[i].bairro %>
+                     </p>
+                     <p class="card-text text-start text-dark">
+                       <%= clientePF.enderecos[i].rua %>,
+                       <%= clientePF.enderecos[i].numero %>
+                     </p>
+                     <p class="card-text text-start text-dark">
+                       <%=
+                       clientePF.enderecos[i].complemento
+                       %>
+                     </p>
+                     <p class="card-text text-start text-dark">
+                       <%= clientePF.enderecos[i].cidade %>
+                       - <%= clientePF.enderecos[i].estado
+                       %> <br>
+                       ----------------------
+                     </p>
+                     <% } %>
+                  </ul>
+
                 </td>
-                <td><a href="/cliente/<%= clientePF._id%>">Editar</a></td>
+                <td>
+                  <a href="/cliente/<%= clientePF._id %>">
+                    Editar
+                  </a>
+                </td>
+
               </tr>
+
               <% }); %>
             </tbody>
           </table>
-          <div class="row" id="endereco_pf">
-            <div class="col">
-              <div class="collapse multi-collapse" id="multiCollapsePF">
-                <div class="card card-body">
-                  <div
-                    class="card text-bg-secondary mt-3"
-                    id="endereco_cadastrado_${index}"
-                  >
-                    <div class="card-header">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        fill="currentColor"
-                        class="text-dark bi bi-signpost-split"
-                        viewBox="0 0 16 16"
-                      >
-                        <path
-                          d="M7 7V1.414a1 1 0 0 1 2 0V2h5a1 1 0 0 1 .8.4l.975 1.3a.5.5 0 0 1 0 .6L14.8 5.6a1 1 0 0 1-.8.4H9v10H7v-5H2a1 1 0 0 1-.8-.4L.225 9.3a.5.5 0 0 1 0-.6L1.2 7.4A1 1 0 0 1 2 7h5zm1 3V8H2l-.75 1L2 10h6zm0-5h6l.75-1L14 3H8v2z"
-                        />
-                      </svg>
-                      <div
-                        class="text-center text-dark"
-                        style="display: contents"
-                      >
-                        Endereço
-                      </div>
-                    </div>
-                    <div class="card-body">
-                      <p class="card-text text-start text-dark">
-                        ${cep}, ${bairro}
-                      </p>
-                      <p class="card-text text-start text-dark">
-                        ${rua}, ${numero}
-                      </p>
-                      <p class="card-text text-start text-dark">
-                        ${complemento}
-                      </p>
-                      <p class="card-text text-start text-dark">
-                        ${cidade} - ${estado}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -159,102 +134,50 @@
               </tr>
             </thead>
             <tbody>
-              <% clientesPJ.forEach(clientePJ => { %>
+              <% clientesPJ.forEach(clientePJ => {
+              %>
               <tr>
                 <td><%= clientePJ.razaoSocial %></td>
                 <td><%= clientePJ.nomeFantasia %></td>
                 <td><%= clientePJ.cnpj %></td>
                 <td><%= clientePJ.telefone %></td>
                 <td>
-                  <a
-                    class="btn btn-primary"
-                    data-bs-toggle="collapse"
-                    href="#multiCollapsePJ"
-                    role="button"
-                    aria-expanded="false"
-                    aria-controls="multiCollapsePJ"
-                    >Mostrar Endereços</a
-                  >
+                  <ul>
+                     <% for(var i=0; i<clientePJ.enderecos.length; i++) {%>
+                       <p class="card-text text-start text-dark">
+                       <%= clientePJ.enderecos[i].cep %>,
+                       <%= clientePJ.enderecos[i].bairro %>
+                     </p>
+                     <p class="card-text text-start text-dark">
+                       <%= clientePJ.enderecos[i].rua %>,
+                       <%= clientePJ.enderecos[i].numero %>
+                     </p>
+                     <p class="card-text text-start text-dark">
+                       <%=
+                       clientePJ.enderecos[i].complemento
+                       %>
+                     </p>
+                     <p class="card-text text-start text-dark">
+                       <%= clientePJ.enderecos[i].cidade %>
+                       - <%= clientePJ.enderecos[i].estado
+                       %> <br>
+                       ----------------------
+                     </p>
+                     <% } %>
+                  </ul>
                 </td>
                 <td>
                   <a href="/cliente/<%= clientePJ._id%>">Editar</a>
                 </td>
+
               </tr>
               <% }); %>
             </tbody>
           </table>
-          <div class="row" id="endereco_pj">
-            <div class="col">
-              <div class="collapse multi-collapse" id="multiCollapsePJ">
-                <div class="card card-body">
-                  <div
-                    class="card text-bg-secondary mt-3"
-                    id="endereco_cadastrado_${index}"
-                  >
-                    <div class="card-header">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        fill="currentColor"
-                        class="text-dark bi bi-signpost-split"
-                        viewBox="0 0 16 16"
-                      >
-                        <path
-                          d="M7 7V1.414a1 1 0 0 1 2 0V2h5a1 1 0 0 1 .8.4l.975 1.3a.5.5 0 0 1 0 .6L14.8 5.6a1 1 0 0 1-.8.4H9v10H7v-5H2a1 1 0 0 1-.8-.4L.225 9.3a.5.5 0 0 1 0-.6L1.2 7.4A1 1 0 0 1 2 7h5zm1 3V8H2l-.75 1L2 10h6zm0-5h6l.75-1L14 3H8v2z"
-                        />
-                      </svg>
-                      <div
-                        class="text-center text-dark"
-                        style="display: contents"
-                      >
-                        Endereço ${index + 1}
-                      </div>
-                    </div>
-                    <div class="card-body">
-                      <p class="card-text text-start text-dark">
-                        ${cep}, ${bairro}
-                      </p>
-                      <p class="card-text text-start text-dark">
-                        ${rua}, ${numero}
-                      </p>
-                      <p class="card-text text-start text-dark">
-                        ${complemento}
-                      </p>
-                      <p class="card-text text-start text-dark">
-                        ${cidade} - ${estado}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
 
       <%- include('../includes/footer')%>
     </div>
   </div>
-  <script>
-    function mostraEndereco(enderecos_texto) {
-      const enderecos = JSON.parse(enderecos_texto);
-    }
-
-    function tabCpfIsActive() {
-      const a_cpf = document.getElementById("linkPF");
-      return a_cpf.classList.contains("active");
-    }
-
-    function resetAdressForm() {
-      // ----------------------------------------------------- Remover dados cliente pf quando trocar de aba
-      if (!tabCpfIsActive()) {
-        const colapsse = document.getElementById("multiCollapsePF");
-        colapsse.classList.remove("show");
-      } else {
-        const colapsse = document.getElementById("multiCollapsePJ");
-        colapsse.classList.remove("show");
-      }
-    }
-  </script>
 </div>

@@ -66,9 +66,11 @@ Endereco.buscarPorId = async function (id) {
 };
 
 Endereco.buscarEnderecos = async function () {
-  const Endereco = await EnderecoModel.find().sort({
-    criadoEm: -1,
-  }).populate('clienteId');
+  const Endereco = await EnderecoModel.find()
+    .sort({
+      criadoEm: -1,
+    })
+    .populate("clienteId");
   return Endereco;
 };
 
@@ -83,6 +85,12 @@ Endereco.buscarEnderecosPJ = async function () {
     criadoEm: -1,
   });
   return EnderecoPJ;
+};
+Endereco.buscarEnderecosId = async function () {
+  const EnderecoId = await EnderecoModel.find({
+    clienteId: "63153f44a7ad451b94e5bc5d",
+  });
+  return EnderecoId;
 };
 
 module.exports = Endereco;

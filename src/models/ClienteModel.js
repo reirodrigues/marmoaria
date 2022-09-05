@@ -108,18 +108,34 @@ Cliente.buscarClientes = async function () {
   return cliente;
 };
 
+// Cliente.buscarClientesPF = async function () {
+//   const clientePF = await ClienteModel.find({ cnpj: "" }).sort({
+//     criadoEm: -1,
+//   });
+//   return clientePF;
+// };
+
+// Cliente.buscarClientesPJ = async function () {
+//   const clientePJ = await ClienteModel.find({ cpf: "" }).sort({
+//     criadoEm: -1,
+//   });
+//   return clientePJ;
+// };
+
+// ------------------------------------------------------------------------------ teste
+
 Cliente.buscarClientesPF = async function () {
-  const clientePF = await ClienteModel.find({ cnpj: "" }).sort({
-    criadoEm: -1,
-  });
-  return clientePF;
+  const clientesPF = await ClienteModel.find({
+    cnpj: "",
+  }).populate("enderecos");
+  return clientesPF;
 };
 
 Cliente.buscarClientesPJ = async function () {
-  const clientePJ = await ClienteModel.find({ cpf: "" }).sort({
-    criadoEm: -1,
-  });
-  return clientePJ;
+  const clientesPJ = await ClienteModel.find({
+    cpf: "",
+  }).populate("enderecos");
+  return clientesPJ;
 };
 
 module.exports = Cliente;
