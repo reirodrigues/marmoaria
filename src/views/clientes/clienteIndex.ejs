@@ -70,30 +70,28 @@
                 <td><%= clientePF.nome %></td>
                 <td><%= clientePF.cpf %></td>
                 <td><%= clientePF.telefone %></td>
-                <td>
-                  
+                <td>                  
                   <ul>
-                     <% for(var i=0; i<clientePF.enderecos.length; i++) {%>
-                       <p class="card-text text-start text-dark">
+                    <% for(var i=0; i<clientePF.enderecos.length; i++) {%>
+                      <p class="card-text text-start text-dark">
                        <%= clientePF.enderecos[i].cep %>,
                        <%= clientePF.enderecos[i].bairro %>
-                     </p>
-                     <p class="card-text text-start text-dark">
+                      </p>
+                      <p class="card-text text-start text-dark">
                        <%= clientePF.enderecos[i].rua %>,
                        <%= clientePF.enderecos[i].numero %>
-                     </p>
-                     <p class="card-text text-start text-dark">
+                      </p>
+                      <p class="card-text text-start text-dark">
                        <%=
                        clientePF.enderecos[i].complemento
                        %>
-                     </p>
-                     <p class="card-text text-start text-dark">
+                      </p>
+                      <p class="card-text text-start text-dark">
                        <%= clientePF.enderecos[i].cidade %>
                        - <%= clientePF.enderecos[i].estado
-                       %> <br>
-                       ----------------------
-                     </p>
-                     <% } %>
+                       %>
+                      </p>
+                    <% } %>
                   </ul>
 
                 </td>
@@ -142,35 +140,34 @@
                 <td><%= clientePJ.cnpj %></td>
                 <td><%= clientePJ.telefone %></td>
                 <td>
-                  <ul>
-                     <% for(var i=0; i<clientePJ.enderecos.length; i++) {%>
-                       <p class="card-text text-start text-dark">
-                       <%= clientePJ.enderecos[i].cep %>,
-                       <%= clientePJ.enderecos[i].bairro %>
-                     </p>
-                     <p class="card-text text-start text-dark">
-                       <%= clientePJ.enderecos[i].rua %>,
-                       <%= clientePJ.enderecos[i].numero %>
-                     </p>
-                     <p class="card-text text-start text-dark">
-                       <%=
-                       clientePJ.enderecos[i].complemento
-                       %>
-                     </p>
-                     <p class="card-text text-start text-dark">
-                       <%= clientePJ.enderecos[i].cidade %>
-                       - <%= clientePJ.enderecos[i].estado
-                       %> <br>
-                       ----------------------
-                     </p>
-                     <% } %>
-                  </ul>
+                    <ul>
+                      <% for(var i=0; i<clientePJ.enderecos.length; i++) {%>
+                        <p class="card-text text-start text-dark">
+                        <%= clientePJ.enderecos[i].cep %>,
+                        <%= clientePJ.enderecos[i].bairro %>
+                        </p>
+                        <p class="card-text text-start text-dark">
+                          <%= clientePJ.enderecos[i].rua %>,
+                          <%= clientePJ.enderecos[i].numero %>
+                        </p>
+                        <p class="card-text text-start text-dark">
+                          <%=
+                          clientePJ.enderecos[i].complemento
+                          %>
+                        </p>
+                        <p class="card-text text-start text-dark">
+                          <%= clientePJ.enderecos[i].cidade %>
+                          - <%= clientePJ.enderecos[i].estado
+                          %>
+                        </p>
+                      <% } %>
+                    </ul>
                 </td>
-                <td>
-                  <a href="/cliente/<%= clientePJ._id%>">Editar</a>
-                </td>
-
+                  <td>
+                    <a href="/cliente/<%= clientePJ._id%>">Editar</a>
+                  </td>
               </tr>
+
               <% }); %>
             </tbody>
           </table>
@@ -181,3 +178,16 @@
     </div>
   </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
