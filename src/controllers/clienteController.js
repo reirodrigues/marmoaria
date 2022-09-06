@@ -11,13 +11,13 @@ exports.register = async (req, response) => {
     const cliente = new Cliente(req.body);
 
     await cliente.registerCliente();
-    if (cliente.errors.length == 0) { 
+    if (cliente.errors.length == 0) {
       await cliente.registerAdresses();
     }
 
     if (cliente.errors.length > 0) {
       req.flash("errors", cliente.errors);
-      return response.status(400).send({messages: cliente.errors});
+      return response.status(400).send({ messages: cliente.errors });
     }
 
     req.flash("success", cliente.success);
@@ -36,7 +36,9 @@ exports.editIndex = async (req, res) => {
 
   if (!cliente) return res.render("404");
 
-  res.render("clientes/editarCliente", { cliente: cliente });
+  res.render("clientes/editarCliente", {
+    cliente: cliente,
+  });
 };
 
 exports.edit = async (req, res) => {
