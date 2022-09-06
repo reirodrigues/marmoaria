@@ -18,7 +18,7 @@
       <%- include('../includes/messages')%>
 
       <ul class="nav nav-tabs" role="tablist">
-        <li class="nav-item" role="presentation" onclick="resetAdressForm()">
+        <li class="nav-item" role="presentation">
           <a
             href="#tabPF"
             class="nav-link active"
@@ -29,7 +29,7 @@
             >Clientes Pessoa Física</a
           >
         </li>
-        <li class="nav-item" role="presentation" onclick="resetAdressForm()">
+        <li class="nav-item" role="presentation">
           <a
             href="#tabPJ"
             class="nav-link"
@@ -41,6 +41,8 @@
           >
         </li>
       </ul>
+
+      <!------------------- Conteudo PF ---------------------->
 
       <div class="tab-content" id="meusConteudos">
         <div
@@ -70,17 +72,15 @@
                 <td><%= clientePF.cpf %></td>
                 <td><%= clientePF.telefone %></td>
                 <td>
-                  <a
+                  <button
+                    type="button"
                     class="btn btn-primary"
-                    data-bs-toggle="collapse"
-                    href="#collapseEnderecosPF"
-                    role="button"
-                    aria-expanded="false"
-                    aria-controls="collapseEnderecosPF"
+                    data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop"
                     onclick="mostrarEnderecos('<%= JSON.stringify(clientePF.enderecos) %>')"
                   >
                     Mostrar endereço
-                  </a>
+                  </button>
                 </td>
                 <td>
                   <a href="/cliente/<%= clientePF._id %>"> Editar </a>
@@ -93,7 +93,45 @@
         </div>
       </div>
 
-      <div class="collapse" id="collapseEnderecosPF"></div>
+      <!-- Modal PF -->
+
+      <div
+        class="modal fade"
+        id="staticBackdrop"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">
+                Endereços Cadastrados
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body" id="cardEnderecoModal"></div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!------------- Conteudo PJ -------------->
 
       <div class="tab-content" id="meusConteudos">
         <div
@@ -125,17 +163,15 @@
                 <td><%= clientePJ.cnpj %></td>
                 <td><%= clientePJ.telefone %></td>
                 <td>
-                  <a
+                  <button
+                    type="button"
                     class="btn btn-primary"
-                    data-bs-toggle="collapse"
-                    href="#collapseEnderecosPJ"
-                    role="button"
-                    aria-expanded="false"
-                    aria-controls="collapseEnderecosPJ"
+                    data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop"
                     onclick="mostrarEnderecos('<%= JSON.stringify(clientePJ.enderecos) %>')"
                   >
                     Mostrar endereço
-                  </a>
+                  </button>
                 </td>
                 <td>
                   <a href="/cliente/<%= clientePJ._id%>">Editar</a>
@@ -148,7 +184,43 @@
         </div>
       </div>
 
-      <div class="collapse" id="collapseEnderecosPJ"></div>
+      <!-- Modal PJ -->
+
+      <div
+        class="modal fade"
+        id="staticBackdrop"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">
+                Endereços Cadastrados
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body" id="cardEnderecoModal"></div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <%- include('../includes/footer')%>
     </div>
@@ -158,53 +230,19 @@
 <script>
   function mostrarEnderecos(dados) {
     const enderecos = JSON.parse(dados);
-    let cardEndereco = document.getElementById("collapseEnderecosPF");
-
-    if (!tabCpfIsActive()) {
-      cardEndereco = document.getElementById("collapseEnderecosPJ");
-    }
+    const cardEndereco = document.getElementById("cardEnderecoModal");
 
     cardEndereco.innerHTML = "";
     enderecos.forEach((endereco, index) => {
       cardEndereco.innerHTML += `      
-      <div class="card text-bg-secondary mt-3" id="endereco_cadastrado">
-        <div class="card-header">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="text-dark bi bi-signpost-split" viewBox="0 0 16 16">
-            <path d="M7 7V1.414a1 1 0 0 1 2 0V2h5a1 1 0 0 1 .8.4l.975 1.3a.5.5 0 0 1 0 .6L14.8 5.6a1 1 0 0 1-.8.4H9v10H7v-5H2a1 1 0 0 1-.8-.4L.225 9.3a.5.5 0 0 1 0-.6L1.2 7.4A1 1 0 0 1 2 7h5zm1 3V8H2l-.75 1L2 10h6zm0-5h6l.75-1L14 3H8v2z"/>
-          </svg>
-          <div class="text-center text-dark" style="display: contents;">
-            Endereço ${index + 1}
-          </div>
-        </div>
-        <div class="card-body">
-          <p class="card-text  text-start text-dark">${endereco.cep}, ${
-        endereco.bairro
-      }</p>
-          <p class="card-text  text-start text-dark">${endereco.rua}, ${
-        endereco.numero
-      }</p>
+        <div class="border border-secondary border-2 rounded-2 mb-3 p-3 bg-info bg-opacity-10">
+          
+          <p class="card-text  text-start text-dark">${endereco.cep}, ${endereco.bairro}</p>
+          <p class="card-text  text-start text-dark">${endereco.rua}, ${endereco.numero}</p>
           <p class="card-text  text-start text-dark">${endereco.complemento}</p>
-          <p class="card-text  text-start text-dark">${endereco.cidade} - ${
-        endereco.estado
-      }</p>
-        </div>
-      </div>`;
+          <p class="card-text  text-start text-dark">${endereco.cidade} - ${endereco.estado}</p>
+            
+        </div>`;
     });
-  }
-
-  // ----------------------------------------------------- Remover dados cliente pf quando trocar de aba
-  function tabCpfIsActive() {
-    const a_cpf = document.getElementById("linkPF");
-    return a_cpf.classList.contains("active");
-  }
-
-  function resetAdressForm() {
-    if (!tabCpfIsActive()) {
-      const colapsse = document.getElementById("collapseEnderecosPF");
-      colapsse.classList.remove("show");
-    } else {
-      const colapsse = document.getElementById("collapseEnderecosPJ");
-      colapsse.classList.remove("show");
-    }
   }
 </script>
