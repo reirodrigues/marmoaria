@@ -64,43 +64,27 @@
               </tr>
             </thead>
             <tbody>
-              <% clientesPF.forEach(clientePF => {
-              %>
+              <% clientesPF.forEach(clientePF => { %>
               <tr>
                 <td><%= clientePF.nome %></td>
                 <td><%= clientePF.cpf %></td>
                 <td><%= clientePF.telefone %></td>
-                <td>                  
-                  <ul>
-                    <% for(var i=0; i<clientePF.enderecos.length; i++) {%>
-                      <p class="card-text text-start text-dark">
-                       <%= clientePF.enderecos[i].cep %>,
-                       <%= clientePF.enderecos[i].bairro %>
-                      </p>
-                      <p class="card-text text-start text-dark">
-                       <%= clientePF.enderecos[i].rua %>,
-                       <%= clientePF.enderecos[i].numero %>
-                      </p>
-                      <p class="card-text text-start text-dark">
-                       <%=
-                       clientePF.enderecos[i].complemento
-                       %>
-                      </p>
-                      <p class="card-text text-start text-dark">
-                       <%= clientePF.enderecos[i].cidade %>
-                       - <%= clientePF.enderecos[i].estado
-                       %>
-                      </p>
-                    <% } %>
-                  </ul>
-
-                </td>
                 <td>
-                  <a href="/cliente/<%= clientePF._id %>">
-                    Editar
+                  <a
+                    class="btn btn-primary"
+                    data-bs-toggle="collapse"
+                    href="#collapseEnderecosPF"
+                    role="button"
+                    aria-expanded="false"
+                    aria-controls="collapseEnderecosPF"
+                    onclick="mostrarEnderecos('<%= JSON.stringify(clientePF.enderecos) %>')"
+                  >
+                    Mostrar endereço
                   </a>
                 </td>
-
+                <td>
+                  <a href="/cliente/<%= clientePF._id %>"> Editar </a>
+                </td>
               </tr>
 
               <% }); %>
@@ -108,6 +92,8 @@
           </table>
         </div>
       </div>
+
+      <div class="collapse" id="collapseEnderecosPF"></div>
 
       <div class="tab-content" id="meusConteudos">
         <div
@@ -132,40 +118,28 @@
               </tr>
             </thead>
             <tbody>
-              <% clientesPJ.forEach(clientePJ => {
-              %>
+              <% clientesPJ.forEach(clientePJ => { %>
               <tr>
                 <td><%= clientePJ.razaoSocial %></td>
                 <td><%= clientePJ.nomeFantasia %></td>
                 <td><%= clientePJ.cnpj %></td>
                 <td><%= clientePJ.telefone %></td>
                 <td>
-                    <ul>
-                      <% for(var i=0; i<clientePJ.enderecos.length; i++) {%>
-                        <p class="card-text text-start text-dark">
-                        <%= clientePJ.enderecos[i].cep %>,
-                        <%= clientePJ.enderecos[i].bairro %>
-                        </p>
-                        <p class="card-text text-start text-dark">
-                          <%= clientePJ.enderecos[i].rua %>,
-                          <%= clientePJ.enderecos[i].numero %>
-                        </p>
-                        <p class="card-text text-start text-dark">
-                          <%=
-                          clientePJ.enderecos[i].complemento
-                          %>
-                        </p>
-                        <p class="card-text text-start text-dark">
-                          <%= clientePJ.enderecos[i].cidade %>
-                          - <%= clientePJ.enderecos[i].estado
-                          %>
-                        </p>
-                      <% } %>
-                    </ul>
+                  <a
+                    class="btn btn-primary"
+                    data-bs-toggle="collapse"
+                    href="#collapseEnderecosPJ"
+                    role="button"
+                    aria-expanded="false"
+                    aria-controls="collapseEnderecosPJ"
+                    onclick="mostrarEnderecos('<%= JSON.stringify(clientePJ.enderecos) %>')"
+                  >
+                    Mostrar endereço
+                  </a>
                 </td>
-                  <td>
-                    <a href="/cliente/<%= clientePJ._id%>">Editar</a>
-                  </td>
+                <td>
+                  <a href="/cliente/<%= clientePJ._id%>">Editar</a>
+                </td>
               </tr>
 
               <% }); %>
@@ -174,20 +148,63 @@
         </div>
       </div>
 
+      <div class="collapse" id="collapseEnderecosPJ"></div>
+
       <%- include('../includes/footer')%>
     </div>
   </div>
 </div>
 
+<script>
+  function mostrarEnderecos(dados) {
+    const enderecos = JSON.parse(dados);
+    let cardEndereco = document.getElementById("collapseEnderecosPF");
 
+    if (!tabCpfIsActive()) {
+      cardEndereco = document.getElementById("collapseEnderecosPJ");
+    }
 
+    cardEndereco.innerHTML = "";
+    enderecos.forEach((endereco, index) => {
+      cardEndereco.innerHTML += `      
+      <div class="card text-bg-secondary mt-3" id="endereco_cadastrado">
+        <div class="card-header">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="text-dark bi bi-signpost-split" viewBox="0 0 16 16">
+            <path d="M7 7V1.414a1 1 0 0 1 2 0V2h5a1 1 0 0 1 .8.4l.975 1.3a.5.5 0 0 1 0 .6L14.8 5.6a1 1 0 0 1-.8.4H9v10H7v-5H2a1 1 0 0 1-.8-.4L.225 9.3a.5.5 0 0 1 0-.6L1.2 7.4A1 1 0 0 1 2 7h5zm1 3V8H2l-.75 1L2 10h6zm0-5h6l.75-1L14 3H8v2z"/>
+          </svg>
+          <div class="text-center text-dark" style="display: contents;">
+            Endereço ${index + 1}
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-text  text-start text-dark">${endereco.cep}, ${
+        endereco.bairro
+      }</p>
+          <p class="card-text  text-start text-dark">${endereco.rua}, ${
+        endereco.numero
+      }</p>
+          <p class="card-text  text-start text-dark">${endereco.complemento}</p>
+          <p class="card-text  text-start text-dark">${endereco.cidade} - ${
+        endereco.estado
+      }</p>
+        </div>
+      </div>`;
+    });
+  }
 
+  // ----------------------------------------------------- Remover dados cliente pf quando trocar de aba
+  function tabCpfIsActive() {
+    const a_cpf = document.getElementById("linkPF");
+    return a_cpf.classList.contains("active");
+  }
 
-
-
-
-
-
-
-
-
+  function resetAdressForm() {
+    if (!tabCpfIsActive()) {
+      const colapsse = document.getElementById("collapseEnderecosPF");
+      colapsse.classList.remove("show");
+    } else {
+      const colapsse = document.getElementById("collapseEnderecosPJ");
+      colapsse.classList.remove("show");
+    }
+  }
+</script>
