@@ -61,6 +61,7 @@
                 <th>Nome</th>
                 <th>CPF</th>
                 <th>Telefone</th>
+                <th>Email</th>
                 <th>Endereço</th>
                 <th>Ações</th>
               </tr>
@@ -71,6 +72,7 @@
                 <td><%= clientePF.nome %></td>
                 <td><%= clientePF.cpf %></td>
                 <td><%= clientePF.telefone %></td>
+                <td><%= clientePF.email %></td>
                 <td>
                   <button
                     type="button"
@@ -151,6 +153,7 @@
                 <th>Nome Fantasia</th>
                 <th>CNPJ</th>
                 <th>Telefone</th>
+                <th>Email</th>
                 <th>Endereço</th>
                 <th>Ações</th>
               </tr>
@@ -162,6 +165,7 @@
                 <td><%= clientePJ.nomeFantasia %></td>
                 <td><%= clientePJ.cnpj %></td>
                 <td><%= clientePJ.telefone %></td>
+                <td><%= clientePJ.email %></td>
                 <td>
                   <button
                     type="button"
@@ -237,10 +241,10 @@
       cardEndereco.innerHTML += `      
         <div class="border border-secondary border-2 rounded-2 mb-3 p-3 bg-info bg-opacity-10">
           
-          <p class="card-text  text-start text-dark">${endereco.cep}, ${endereco.bairro}</p>
-          <p class="card-text  text-start text-dark">${endereco.rua}, ${endereco.numero}</p>
-          <p class="card-text  text-start text-dark">${endereco.complemento}</p>
-          <p class="card-text  text-start text-dark">${endereco.cidade} - ${endereco.estado}</p>
+          <p class="card-text fs-5  text-start text-dark">${endereco.cep}, ${endereco.bairro}</p>
+          <p class="card-text fs-5 text-start text-dark">${endereco.rua}, ${endereco.numero}</p>
+          <p class="card-text fs-5 text-start text-dark">${endereco.complemento}</p>
+          <p class="card-text fs-5 text-start text-dark">${endereco.cidade} - ${endereco.estado}</p>
             
         </div>`;
     });
