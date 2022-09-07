@@ -97,7 +97,7 @@ Cliente.prototype.edit = async function (id) {
 
 Cliente.buscarPorId = async function (id) {
   if (typeof id !== "string") return;
-  const cliente = await ClienteModel.findById(id);
+  const cliente = await ClienteModel.findById(id).populate("enderecos");
   return cliente;
 };
 

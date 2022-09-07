@@ -48,17 +48,139 @@
             name="telefone"
           />
         </div>
+
         <div class="form-group my-3">
-          <label>Endereço:</label>
+          <label>Email:</label>
           <input
-            value="<%= cliente.endereco %>"
+            value="<%= cliente.email %>"
             type="text"
             class="form-control"
-            name="endereco"
+            name="telefone"
           />
         </div>
 
-        <% } else { %>
+        <div id="enderecos">
+        <% cliente.enderecos.forEach((endereco, index) => { %>
+        <div id="formEndereco_<%= index %>">
+          <div
+            id="loading"
+            class="d-none"
+            style="display: flex; justify-content: center; align-items: center"
+          >
+            <button class="btn btn-primary" type="button" disabled>
+              <span
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              <span>Loading...</span>
+            </button>
+          </div>
+          <div class="container border" id="adress_<%= index %>">
+            <div
+              class="mt-4 pt-4"
+              style="display: flex; justify-content: center; align-items: center"
+            >
+              <h3>Endereço</h3>
+            </div>
+            <form class="pt-5">
+              <p class="msg my-5"></p>
+              <div class="form-outline mb-4">
+                <label class="form-label pt-2"><span>CEP: *</span></label>
+                <input
+                  value="<%= endereco.cep %>"
+                  data-mask-for-cep
+                  required
+                  type="text"
+                  class="form-control"
+                  id="cep_<%= index %>"
+                  onblur="buscaCEP('<%= index %>')"
+                  onkeyup="buscaCEP('<%= index %>')"
+                />
+              </div>
+
+              <div class="form-outline mb-4">
+                <label class="form-label">Rua: *</label>
+                <input
+                  value="<%= endereco.rua %>"
+                  required
+                  type="text"
+                  class="form-control"
+                  id="rua_<%= index %>"
+                />
+              </div>
+
+              <div class="form-outline mb-4">
+                <label class="form-label">Numero: *</label>
+                <input
+                  value="<%= endereco.numero %>"
+                  required
+                  type="number"
+                  class="form-control"
+                  id="numero_<%= index %>"
+                />
+              </div>
+
+              <div class="form-outline mb-4">
+                <label class="form-label">Complemento:</label>
+                <input
+                  value="<%= endereco.complemento %>"
+                  type="text"
+                  class="form-control"
+                  id="complemento_<%= index %>"
+                />
+              </div>
+
+              <div class="form-outline mb-4">
+                <label class="form-label">Bairro: *</label>
+                <input
+                  value="<%= endereco.bairro %>"
+                  required
+                  type="text"
+                  class="form-control"
+                  id="bairro_<%= index %>"
+                />
+              </div>
+
+              <div class="row mb-4">
+                <div class="col">
+                  <div class="form-outline">
+                    <label class="form-label" for="form6Example1"
+                      >Cidade: *</label
+                    >
+                    <input
+                      value="<%= endereco.cidade %>"
+                      required
+                      type="text"
+                      class="form-control"
+                      id="cidade_<%= index %>"
+                    />
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-outline">
+                    <label class="form-label">Estado: *</label>
+                    <input
+                      value="<%= endereco.estado %>"
+                      required
+                      type="text"
+                      class="form-control"
+                      id="estado_<%= index %>"
+                    />
+                  </div>
+                  <div class="text-right float-end pt-3">
+                    <button
+                      type="button"
+                      class="btn btn-danger"
+                      onclick="removerFormEndereco('<%= index %>')"
+                    >Remover</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>        
+        </div>
+        <% }); %> <% } else { %>
 
         <div class="form-row">
           <div class="form-group my-3">
@@ -119,11 +241,85 @@
           />
         </div>
         <% } %>
-
-        <button type="submit" class="btn btn-primary my-3">Salvar</button>
+      </div>
+        <button type="submit" class="btn btn-success my-3" onclick="teste()">Salvar</button>
+        </div>
       </form>
     </div>
   </div>
+  <script>    
+    const indexes = [...Array(parseInt('<%= cliente.enderecos.length %>')).keys()];
+      console.log(indexes);
+    function buscaCEP(index) {
+      const cepInput = document.getElementById(`cep_${index}`).value;
+
+      if (cepInput.replace("-", "").length != 8) {
+        return;
+      }
+
+      document.getElementById(`adress_${index}`).classList.add("d-none");
+      document.getElementById(`loading`).classList.remove("d-none");
+      let error = false;
+
+      const cepData = axios
+        .post(`buscaCEP`, {
+          cep: cepInput,
+        })
+        .then((res) => {
+          return res.data;
+        })
+        .catch((err) => {
+          console.log(err.response);
+          error = true;
+          alert("Verifique o CEP digitado!");
+        })
+        .finally((res) => {
+          document.getElementById(`adress_${index}`).classList.remove("d-none");
+          document.getElementById(`loading`).classList.add("d-none");
+        });
+
+      if (error) return;
+
+      const rua = document.getElementById(`rua_${index}`);
+      const numero = document.getElementById(`numero_${index}`);
+      const complemento = document.getElementById(`complemento_${index}`);
+      const bairro = document.getElementById(`bairro_${index}`);
+      const cidade = document.getElementById(`cidade_${index}`);
+      const estado = document.getElementById(`estado_${index}`);
+
+      rua.value = cepData.logradouro;
+      bairro.value = cepData.bairro;
+      complemento.value = cepData.complemento;
+      cidade.value = cepData.localidade;
+      estado.value = cepData.uf;
+
+      numero.focus();
+    }
+    
+    function removerFormEndereco(index) {
+      document.getElementById(`formEndereco_${index}`).remove();
+      indexes[index] = 'x';
+      console.log(indexes);
+    }
+
+    function teste() {
+      console.log('formulario numero ' + indexes.length);
+      indexes.push(indexes.length);
+      console.log(indexes);
+      document.getElementById('enderecos').innerHTML += '';
+    }
+    
+    function salvarTeste() {
+      indexes.forEach(element => {
+        if(element != 'x') {
+          // cep
+          // rua numer cidade estado
+          enderecosParaSalvar.push()
+        }
+      })
+      
+    }
+  </script>
 
   <%- include('../includes/footer')%>
 </div>

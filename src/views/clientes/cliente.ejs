@@ -166,13 +166,6 @@
       </div>
     </div>
   </div>
-
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"
-    integrity="sha512-odNmoc1XJy5x1TMVMdC7EMs3IVdItLPlCeL5vSUPN2llYKMJ2eByTTAIiiuqLg+GdNr9hF6z81p27DArRFKT7A=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  ></script>
   <script>
     let index = 0;
     let adress = [];
@@ -411,22 +404,6 @@
       complemento.value = cepData.complemento;
       cidade.value = cepData.localidade;
       estado.value = cepData.uf;
-
-      if (rua.value) {
-        rua.disabled = true;
-      }
-
-      if (bairro.value) {
-        bairro.disabled = true;
-      }
-
-      if (cidade.value) {
-        cidade.disabled = true;
-      }
-
-      if (estado.value) {
-        estado.disabled = true;
-      }
 
       numero.focus();
     }

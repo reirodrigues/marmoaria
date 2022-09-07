@@ -33,6 +33,7 @@ exports.editIndex = async (req, res) => {
   if (!req.params.id) return res.render("404");
 
   const cliente = await Cliente.buscarPorId(req.params.id);
+  console.log(cliente);
 
   if (!cliente) return res.render("404");
 
