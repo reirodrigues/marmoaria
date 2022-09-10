@@ -23,11 +23,11 @@ function Endereco(body) {
 
 Endereco.prototype.register = async function () {
   this.valida();
-  if (this.errors.length > 0) return;
+  if (this.errors.length > 0) return this;
 
   this.success.push("Endereco cadastrado com sucesso");
   this.endereco = await EnderecoModel.create(this.body);
-  return this.endereco;
+  return this;
 };
 
 Endereco.prototype.valida = function () {
@@ -80,17 +80,27 @@ Endereco.buscarEnderecosPF = async function () {
   });
   return EnderecoPF;
 };
+
 Endereco.buscarEnderecosPJ = async function () {
   const EnderecoPJ = await EnderecoModel.find({ cnpj: { $gt: 1 } }).sort({
     criadoEm: -1,
   });
   return EnderecoPJ;
 };
+
 Endereco.buscarEnderecosId = async function () {
   const EnderecoId = await EnderecoModel.find({
     clienteId: "63153f44a7ad451b94e5bc5d",
   });
   return EnderecoId;
+};
+
+Endereco.deletarEnderecos = async function (enderecos) {
+  await EnderecoModel.deleteMany({
+    _id: {
+      $in: enderecos,
+    },
+  });
 };
 
 module.exports = Endereco;

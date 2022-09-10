@@ -6,9 +6,9 @@ const PedidoSchema = new mongoose.Schema({
   dataPagamento: { type: String, required: false, default: "" },
   classificacao: { type: String, required: true },
   valor: { type: String, required: true },
-  tipoConta: { type: String, required: true },
+  tipoConta: { type: mongoose.Schema.Types.ObjectId, ref: "Conta" },
   cliente: { type: String, required: true },
-  origem: { type: String, required: true },
+  origem: { type: mongoose.Schema.Types.ObjectId, ref: "Origem" },
   status: { type: String, required: true },
   criadoEm: { type: Date, default: Date.now },
 });

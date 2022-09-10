@@ -40,16 +40,33 @@ Cliente.prototype.registerCliente = async function () {
 };
 
 Cliente.prototype.registerAdresses = async function () {
-  //this.validaAdress();
-  //if (this.errors.length > 0) return;
+  const enderecos = [];
+  let index = 0;
 
   for (const DadosEndereco of this.body.enderecos) {
     DadosEndereco.clienteId = this.cliente._id;
     const endereco = new Endereco(DadosEndereco);
     const enderecoCadastrado = await endereco.register();
-    this.cliente.enderecos.push(enderecoCadastrado);
+
+    if (enderecoCadastrado.errors.length) {
+      enderecoCadastrado.errors.forEach((error) => {
+        this.errors.push(error + `. Do endereço ${index + 1}`);
+      });
+      this.limpaEnderecos(enderecos);
+      return;
+    }
+
+    if (!enderecoCadastrado.endereco) {
+      this.errors.push("Erro na criação do endereço!");
+      this.limpaEnderecos(enderecos);
+      return;
+    }
+    index++;
+    enderecos.push(enderecoCadastrado.endereco);
   }
 
+  this.limpaEnderecos(this.cliente.enderecos);
+  this.cliente.enderecos = enderecos;
   await this.cliente.save();
 };
 
@@ -76,6 +93,11 @@ Cliente.prototype.valida = function () {
   //   this.errors.push("Telefone é um campo obrigatório");
 };
 
+Cliente.prototype.limpaEnderecos = async function (enderecos) {
+  await Endereco.deletarEnderecos(enderecos);
+  this.cliente.enderecos = [];
+};
+
 Cliente.prototype.cleanUp = function () {
   for (const key in this.body) {
     if (typeof this.body[key] !== "string") {
@@ -85,12 +107,30 @@ Cliente.prototype.cleanUp = function () {
 };
 
 Cliente.prototype.edit = async function (id) {
-  if (typeof id !== "string") return;
-  this.valida();
-  if (this.errors.length > 0) return;
-  this.cliente = await ClienteModel.findByIdAndUpdate(id, this.body, {
-    new: true,
-  });
+  // if (typeof id !== "string") return;
+  // this.valida();
+  // if (this.errors.length > 0) return;
+  // this.cliente = await ClienteModel.findByIdAndUpdate(id, this.body, {
+  //   new: true,
+  // });
+  this.cliente = await ClienteModel.findById(id);
+
+  // this.cliente = await ClienteModel.findByIdAndUpdate(
+  //   id,
+  //   {
+  //     $set: {
+  //       cliente: this.body,
+  //       endereco: this.body,
+  //     },
+  //   },
+  //   {
+  //     new: true,
+  //   }
+  // );
+  // console.log(this.cliente);
+
+  // var result = await ClienteModel.findOne({ id:"Tom Benzamin"},{"address_ids":1})
+  // var addresses = await ClienteModel.find({ id:{"$in":enderecos["_id"]}})
 };
 
 //Métodos estáticos

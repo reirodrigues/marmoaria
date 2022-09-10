@@ -13,8 +13,6 @@
       <%- include('../includes/messages')%>
 
       <form
-        action="/cliente/edit/<%= cliente._id %> "
-        method="POST"
         class="my-5"
       >
         <% if(cliente.cpf) { %>
@@ -55,7 +53,7 @@
             value="<%= cliente.email %>"
             type="text"
             class="form-control"
-            name="telefone"
+            name="email"
           />
         </div>
 
@@ -84,7 +82,7 @@
               <h3>Endereço</h3>
             </div>
             <form class="pt-5">
-              <p class="msg my-5"></p>
+              <p class="msg_<%= index %> my-5"></p>
               <div class="form-outline mb-4">
                 <label class="form-label pt-2"><span>CEP: *</span></label>
                 <input
@@ -93,8 +91,7 @@
                   required
                   type="text"
                   class="form-control"
-                  id="cep_<%= index %>"
-                  onblur="buscaCEP('<%= index %>')"
+                  id="cep_<%= index %>"                  
                   onkeyup="buscaCEP('<%= index %>')"
                 />
               </div>
@@ -231,26 +228,143 @@
             data-mask-for-telefone
           />
         </div>
-        <div class="form-group my-3">
-          <label>Endereço</label>
-          <input
-            value="<%= cliente.endereco %>"
-            type="text"
-            class="form-control"
-            name="endereco"
-          />
+
+        <div id="enderecos">
+        <% cliente.enderecos.forEach((endereco, index) => { %>
+          <div id="formEndereco_<%= index %>">
+            <div
+              id="loading"
+              class="d-none"
+              style="display: flex; justify-content: center; align-items: center"
+            >
+              <button class="btn btn-primary" type="button" disabled>
+                <span
+                  class="spinner-border spinner-border-sm"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+                <span>Loading...</span>
+              </button>
+            </div>
+            <div class="container border" id="adress_<%= index %>">
+              <div
+                class="mt-4 pt-4"
+                style="display: flex; justify-content: center; align-items: center"
+              >
+                <h3>Endereço</h3>
+              </div>
+              <form class="pt-5">
+                <p class="msg_<%= index %> my-5"></p>
+                <div class="form-outline mb-4">
+                  <label class="form-label pt-2"><span>CEP: *</span></label>
+                  <input
+                    value="<%= endereco.cep %>"
+                    data-mask-for-cep
+                    required
+                    type="text"
+                    class="form-control"
+                    id="cep_<%= index %>"                  
+                    onkeyup="buscaCEP('<%= index %>')"
+                  />
+                </div>
+  
+                <div class="form-outline mb-4">
+                  <label class="form-label">Rua: *</label>
+                  <input
+                    value="<%= endereco.rua %>"
+                    required
+                    type="text"
+                    class="form-control"
+                    id="rua_<%= index %>"
+                  />
+                </div>
+  
+                <div class="form-outline mb-4">
+                  <label class="form-label">Numero: *</label>
+                  <input
+                    value="<%= endereco.numero %>"
+                    required
+                    type="number"
+                    class="form-control"
+                    id="numero_<%= index %>"
+                  />
+                </div>
+  
+                <div class="form-outline mb-4">
+                  <label class="form-label">Complemento:</label>
+                  <input
+                    value="<%= endereco.complemento %>"
+                    type="text"
+                    class="form-control"
+                    id="complemento_<%= index %>"
+                  />
+                </div>
+  
+                <div class="form-outline mb-4">
+                  <label class="form-label">Bairro: *</label>
+                  <input
+                    value="<%= endereco.bairro %>"
+                    required
+                    type="text"
+                    class="form-control"
+                    id="bairro_<%= index %>"
+                  />
+                </div>
+  
+                <div class="row mb-4">
+                  <div class="col">
+                    <div class="form-outline">
+                      <label class="form-label" for="form6Example1"
+                        >Cidade: *</label
+                      >
+                      <input
+                        value="<%= endereco.cidade %>"
+                        required
+                        type="text"
+                        class="form-control"
+                        id="cidade_<%= index %>"
+                      />
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="form-outline">
+                      <label class="form-label">Estado: *</label>
+                      <input
+                        value="<%= endereco.estado %>"
+                        required
+                        type="text"
+                        class="form-control"
+                        id="estado_<%= index %>"
+                      />
+                    </div>
+                    <div class="text-right float-end pt-3">
+                      <button
+                        type="button"
+                        class="btn btn-danger"
+                        onclick="removerFormEndereco('<%= index %>')"
+                      >Remover</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>        
+          </div>
+          <% }); %>          
         </div>
         <% } %>
       </div>
-        <button type="submit" class="btn btn-success my-3" onclick="teste()">Salvar</button>
-        </div>
+        <button type="submit" class="btn btn-primary my-3" onclick="adicionarEndereco()">Adicionar novo endereço</button>
+      </div>
+      <!-- </div> -->
+        <button type="button" class="btn btn-success my-3" onclick="atualizar()">Salvar</button>
+      <!-- </div> -->
       </form>
     </div>
   </div>
   <script>    
     const indexes = [...Array(parseInt('<%= cliente.enderecos.length %>')).keys()];
-      console.log(indexes);
-    function buscaCEP(index) {
+    
+    async function buscaCEP(index) {
       const cepInput = document.getElementById(`cep_${index}`).value;
 
       if (cepInput.replace("-", "").length != 8) {
@@ -261,15 +375,16 @@
       document.getElementById(`loading`).classList.remove("d-none");
       let error = false;
 
-      const cepData = axios
+      const cepData = await axios
         .post(`buscaCEP`, {
           cep: cepInput,
         })
         .then((res) => {
+          console.log(res);
           return res.data;
         })
         .catch((err) => {
-          console.log(err.response);
+          //console.log(err.response);
           error = true;
           alert("Verifique o CEP digitado!");
         })
@@ -302,22 +417,264 @@
       console.log(indexes);
     }
 
-    function teste() {
+    function adicionarEndereco() {
       console.log('formulario numero ' + indexes.length);
+      document.getElementById('enderecos', 'enderecoPJ').innerHTML += `
+        <div class="mt-3" id="formEndereco_${indexes.length}">
+          <div
+            id="loading"
+            class="d-none"
+            style="display: flex; justify-content: center; align-items: center"
+          >
+            <button class="btn btn-primary" type="button" disabled>
+              <span
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              <span>Loading...</span>
+            </button>
+          </div>
+          <div class="container border" id="adress_${indexes.length}">
+            <div
+              class="mt-4 pt-4"
+              style="display: flex; justify-content: center; align-items: center"
+            >
+              <h3>Endereço ${indexes}</h3>
+            </div>
+            <form class="pt-5">
+              <p class="msg_${indexes.length} my-5"></p>
+              <div class="form-outline mb-4">
+                <label class="form-label pt-2"><span>CEP: *</span></label>
+                <input
+                  value=""
+                  data-mask-for-cep
+                  required
+                  type="text"
+                  class="form-control"
+                  id="cep_${indexes.length}"                
+                  onkeyup="buscaCEP('${indexes.length}')"
+                />
+              </div>
+
+              <div class="form-outline mb-4">
+                <label class="form-label">Rua: *</label>
+                <input
+                  value=""
+                  required
+                  type="text"
+                  class="form-control"
+                  id="rua_${indexes.length}"
+                />
+              </div>
+
+              <div class="form-outline mb-4">
+                <label class="form-label">Numero: *</label>
+                <input
+                  value=""
+                  required
+                  type="number"
+                  class="form-control"
+                  id="numero_${indexes.length}"
+                />
+              </div>
+
+              <div class="form-outline mb-4">
+                <label class="form-label">Complemento:</label>
+                <input
+                  value=""
+                  type="text"
+                  class="form-control"
+                  id="complemento_${indexes.length}"
+                />
+              </div>
+
+              <div class="form-outline mb-4">
+                <label class="form-label">Bairro: *</label>
+                <input
+                  value=""
+                  required
+                  type="text"
+                  class="form-control"
+                  id="bairro_${indexes.length}"
+                />
+              </div>
+
+              <div class="row mb-4">
+                <div class="col">
+                  <div class="form-outline">
+                    <label class="form-label" for="form6Example1"
+                      >Cidade: *</label
+                    >
+                    <input
+                      value=""
+                      required
+                      type="text"
+                      class="form-control"
+                      id="cidade_${indexes.length}"
+                    />
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-outline">
+                    <label class="form-label">Estado: *</label>
+                    <input
+                      value=""
+                      required
+                      type="text"
+                      class="form-control"
+                      id="estado_${indexes.length}"
+                    />
+                  </div>
+                  <div class="text-right float-end pt-3">
+                    <button
+                      type="button"
+                      class="btn btn-danger"
+                      onclick="removerFormEndereco('${indexes.length}')"
+                    >Remover</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>        
+        </div>
+      `;
       indexes.push(indexes.length);
       console.log(indexes);
-      document.getElementById('enderecos').innerHTML += '';
     }
     
-    function salvarTeste() {
-      indexes.forEach(element => {
-        if(element != 'x') {
-          // cep
-          // rua numer cidade estado
-          enderecosParaSalvar.push()
+    function atualizar() {
+      console.log(event);
+      event.preventDefault();
+      const cpf = document.getElementsByName("cpf");
+      const nome = document.getElementsByName("nome");
+      const cnpj = document.getElementsByName("cnpj");
+      const nomeFantasia = document.getElementsByName("nomeFantasia");
+      const razaoSocial = document.getElementsByName("razaoSocial");
+      const telefone = document.getElementsByName(`telefone`);
+      const email = document.getElementsByName(`email`);
+      let cliente;
+      let error = false;
+
+      if('<%= cliente.cpf %>') {
+        cliente = {
+          cpf: cpf[0].value,
+          nome: nome[0].value,
+          telefone: telefone[0].value,
+          email: email[0].value,
+        };
+      } else {        
+        cliente = {
+          cnpj: cnpj[0].value,
+          nomeFantasia: nomeFantasia[0].value,
+          razaoSocial: razaoSocial[0].value,
+          telefone: telefone[0].value,
+          email: email[0].value,
+        };
+      }
+
+      const enderecos = [];
+
+      indexes.forEach(index => {
+        if(index != 'x') {
+          if(!validaEndereco(index)) {
+            error = true;
+            return;
+          };
+
+          enderecos.push(criarEnderecoOBJ(index));
         }
       })
-      
+
+      if(error) {
+        return;
+      }
+
+      enviarDados({
+        cliente,
+        enderecos,
+      })
+    }
+
+    function enviarDados(dados) {
+      axios
+        .put("/cliente/edit/<%= cliente._id %>", dados)
+        .then((res) => {
+          console.log(res);
+          window.location.href = res.data.route;
+        })
+        .catch((err) => {
+          alert(err);
+          //location.reload();
+        });
+    }
+
+    function criarEnderecoOBJ(index) {       
+      const cep = document.getElementById(`cep_${index}`).value;
+      const rua = document.getElementById(`rua_${index}`).value;
+      const numero = document.getElementById(`numero_${index}`).value;
+      const complemento = document.getElementById(`complemento_${index}`).value;
+      const bairro = document.getElementById(`bairro_${index}`).value;
+      const cidade = document.getElementById(`cidade_${index}`).value;
+      const estado = document.getElementById(`estado_${index}`).value;
+
+      return {
+        cep,
+        rua,
+        numero,
+        complemento,
+        bairro,
+        cidade,
+        estado,
+      }
+    }
+
+    function validaEndereco(index) {      
+      const cep = document.getElementById(`cep_${index}`).value;
+      const rua = document.getElementById(`rua_${index}`).value;
+      const numero = document.getElementById(`numero_${index}`).value;
+      const complemento = document.getElementById(`complemento_${index}`).value;
+      const bairro = document.getElementById(`bairro_${index}`).value;
+      const cidade = document.getElementById(`cidade_${index}`).value;
+      const estado = document.getElementById(`estado_${index}`).value;
+
+      console.log(index);
+      const errorMsg = document.querySelector(`.msg_${index}`);
+
+      if (
+        cep === "" ||
+        rua === "" ||
+        numero === "" ||
+        bairro === "" ||
+        cidade === "" ||
+        estado === ""
+      ) {
+        errorMsg.textContent = "Preencha os campos obrigatorios *";
+        errorMsg.classList.add("text-danger", "mt-4", "badge");
+
+        if (cep === "")
+          document.getElementById(`cep_${index}`).classList =
+            "form-control border border-danger";
+        if (rua === "")
+          document.getElementById(`rua_${index}`).classList =
+            "form-control border border-danger";
+        if (numero === "")
+          document.getElementById(`numero_${index}`).classList =
+            "form-control border border-danger";
+        if (bairro === "")
+          document.getElementById(`bairro_${index}`).classList =
+            "form-control border border-danger";
+        if (cidade === "")
+          document.getElementById(`cidade_${index}`).classList =
+            "form-control border border-danger";
+        if (estado === "")
+          document.getElementById(`estado_${index}`).classList =
+            "form-control border border-danger";
+
+        return false;
+      } else {
+        return true;
+      }
     }
   </script>
 

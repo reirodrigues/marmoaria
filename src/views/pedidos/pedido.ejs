@@ -28,7 +28,7 @@
                       <option value="">Selecione o Tipo de conta</option>
                       <% contas.forEach(conta=> { %>
                         <option
-                          value="<%= conta.tipoConta %>,<%= conta.entrada || false %>,<%= conta.saida || false %>">
+                          value="<%= conta._id %>,<%= conta.entrada || false %>,<%= conta.saida || false %>">
                           <%= conta.tipoConta %>
                         </option>
                         <% }); %>
@@ -70,7 +70,7 @@
                   <select name="origem" id="select-state3" placeholder="Selecione a origem...">
                     <option value="">Selecione a origem</option>
                     <% origens.forEach(origem=> { %>
-                      <option value="<%= origem.origem %>">
+                      <option value="<%= origem._id %>">
                         <%= origem.origem %>
                       </option>
                       <% }); %>

@@ -31,7 +31,7 @@ route.post("/cliente/buscaCEP", loginRequired, clienteController.buscaCEP);
 route.get("/cliente", loginRequired, clienteController.index);
 route.post("/cliente/register", clienteController.register);
 route.get("/cliente/:id", loginRequired, clienteController.editIndex);
-route.post("/cliente/edit/:id", loginRequired, clienteController.edit);
+route.put("/cliente/edit/:id", clienteController.edit);
 
 // Rotas de tipos de contas
 route.get("/conta/home", loginRequired, homeController.contaIndex);
