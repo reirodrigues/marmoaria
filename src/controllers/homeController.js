@@ -6,6 +6,9 @@ const Endereco = require("../models/EnderecoModel");
 
 exports.index = async (req, res) => {
   const pedidos = await Pedido.buscarPedidos();
+  // ----------------------------------------- Mexendo aqui
+  console.log(pedidos);
+  // ----------------------------------------- Mexendo até aqui
   res.render("index", { pedidos });
 };
 

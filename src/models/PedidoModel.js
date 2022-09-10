@@ -90,7 +90,10 @@ Pedido.buscarPorId = async function (id) {
 };
 
 Pedido.buscarPedidos = async function () {
-  const pedidos = await PedidoModel.find().sort({ criadoEm: -1 });
+  const pedidos = await PedidoModel.find()
+    .sort({ criadoEm: -1 })
+    .populate("tipoConta")
+    .populate("origem");
   return pedidos;
 };
 

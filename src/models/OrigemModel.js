@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const OrigemSchema = new mongoose.Schema({
   origem: { type: String, required: true },
+  pedidoId: { type: mongoose.Schema.Types.ObjectId, ref: "Pedido" },
   criadoEm: { type: Date, default: Date.now },
 });
 

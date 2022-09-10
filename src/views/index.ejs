@@ -45,9 +45,10 @@
               %>Saida<% } %>
             </td>
             <td>R$<%= pedido.valor %></td>
-            <td><%= pedido.tipoConta %></td>
+            <td><%= pedido.tipoConta.tipoConta %></td>
             <td><%= pedido.cliente %></td>
-            <td><%= pedido.origem %></td>
+            <td><%= pedido.origem.origem %></td>
+
             <td><%= pedido.status %></td>
             <td><a href="/pedido/<%= pedido._id%>">Editar</a></td>
           </tr>
