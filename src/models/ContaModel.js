@@ -70,7 +70,9 @@ Conta.buscarPorId = async function (id) {
 };
 
 Conta.buscarContas = async function () {
-  const contas = await ContaModel.find().sort({ criadoEm: -1 });
+  const contas = await ContaModel.find()
+    .sort({ criadoEm: -1 })
+    .populate("pedidoId");
   return contas;
 };
 

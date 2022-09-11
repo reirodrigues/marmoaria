@@ -42,13 +42,18 @@ Pedido.prototype.valida = function () {
   if (!this.body.origem) this.errors.push("Origem é obrigatório");
   if (!this.body.status) this.errors.push("Status é obrigatório");
 
-  var dataPagamento = moment(this.body.dataPagamento);
+  if (!this.body.dataPagamento) {
+    this.body.dataPagamento = "";
+  } else {
+    var dataPagamento = moment(this.body.dataPagamento);
+    this.body.dataPagamento = dataPagamento
+      .format("DD-MM-YYYY")
+      .split("-")
+      .join("/");
+  }
+
   var vencimentoOriginal = moment(this.body.vencimentoOriginal);
 
-  this.body.dataPagamento = dataPagamento
-    .format("DD-MM-YYYY")
-    .split("-")
-    .join("/");
   this.body.vencimentoOriginal = vencimentoOriginal
     .format("DD-MM-YYYY")
     .split("-")
@@ -85,7 +90,9 @@ Pedido.prototype.edit = async function (id) {
 // Métodos estáticos
 Pedido.buscarPorId = async function (id) {
   if (typeof id !== "string") return;
-  const pedido = await PedidoModel.findById(id);
+  const pedido = await PedidoModel.findById(id)
+    .populate("tipoConta")
+    .populate("origem");
   return pedido;
 };
 

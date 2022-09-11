@@ -179,6 +179,7 @@
         </div>
         <% }); %> <% } else { %>
 
+          <div>
         <div class="form-row">
           <div class="form-group my-3">
             <label>CNPJ:</label>
@@ -353,11 +354,12 @@
         </div>
         <% } %>
       </div>
-        <button type="submit" class="btn btn-primary my-3" onclick="adicionarEndereco()">Adicionar novo endereço</button>
+        <div class="d-flex flex-column d-inline-flex">       
+          <button type="submit" class="btn btn-primary my-3" onclick="adicionarEndereco()">Adicionar novo endereço</button>
+          <button type="button" class="btn btn-success my-3" onclick="atualizar()">Salvar</button>
+        </div>
       </div>
-      <!-- </div> -->
-        <button type="button" class="btn btn-success my-3" onclick="atualizar()">Salvar</button>
-      <!-- </div> -->
+    </div>
       </form>
     </div>
   </div>
@@ -440,7 +442,7 @@
               class="mt-4 pt-4"
               style="display: flex; justify-content: center; align-items: center"
             >
-              <h3>Endereço ${indexes}</h3>
+              <h3>Novo Endereço</h3>
             </div>
             <form class="pt-5">
               <p class="msg_${indexes.length} my-5"></p>

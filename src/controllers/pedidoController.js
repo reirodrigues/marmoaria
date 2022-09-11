@@ -43,6 +43,7 @@ exports.editIndex = async (req, res) => {
   const pedido = await Pedido.buscarPorId(req.params.id);
   const contas = await Conta.buscarContas();
   const origens = await Origem.buscarOrigens();
+  console.log(pedido);
 
   if (!pedido) return res.render("404");
 

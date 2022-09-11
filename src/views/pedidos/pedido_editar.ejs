@@ -29,8 +29,8 @@
                       <option value="">Selecione o Tipo de conta</option>
                       <% contas.forEach(conta=> { %>
                         <option
-                          value="<%= conta.tipoConta %>,<%= conta.entrada || false %>,<%= conta.saida || false %>"
-                          <% if(conta.tipoConta == pedido.tipoConta) { %>selected<% } %> 
+                          value="<%= conta._id %>,<%= conta.entrada || false %>,<%= conta.saida || false %>"
+                          <% if(conta.tipoConta == pedido.tipoConta.tipoConta) { %>selected<% } %> 
                           >
                           <%= conta.tipoConta %>
                         </option>
@@ -75,8 +75,8 @@
                   <select name="origem" id="select-state3" placeholder="Selecione a origem...">
                     <option value="">Selecione a origem</option>
                     <% origens.forEach(origem=> { %>
-                      <option value="<%= origem.origem %>"
-                        <% if(pedido.origem == origem.origem) { %>selected<% } %>
+                      <option value="<%= origem._id %>"
+                        <% if(origem.origem == pedido.origem.origem) { %>selected<% } %>
                         >
                         <%= origem.origem %>
                       </option>
