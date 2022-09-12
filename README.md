@@ -25,7 +25,7 @@ Além disto é bom ter um editor para trabalhar com o código como [VSCode](http
 
 ```bash
 # Clone este repositório
-$ git clone <https://github.com/reirodrigues/Plataforma-Aulas>
+$ git clone <https://github.com/reirodrigues/marmoaria>
 # Acesse a pasta do projeto no terminal/cmd
 # Instale a dependência
 $ npm install
