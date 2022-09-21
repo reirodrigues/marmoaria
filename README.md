@@ -13,7 +13,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 Sistema para controle financeiro de uma empresa, com login de usuário.
 
-## Como usar
+## Preview
 
 ![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/103211492/191586514-e6ce151f-8343-4342-9b1d-0106a4b6d652.gif)
 
