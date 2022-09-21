@@ -7,7 +7,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - EJS
 - Express
 - Bootstrap
-- DB => mongoDB
+- mongoDB
 
 ## 💻 Projeto
 
